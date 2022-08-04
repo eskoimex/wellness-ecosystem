@@ -70,10 +70,11 @@ const registerUser = async (req, res, next) => {
 
 
 const loginUser = async (req, res, next) => {
-    let err;
     try {
         //Get the field values
        // const createdAt = Date.now();
+       let err;
+
           const loggedInAt = moment().utcOffset('+01:00').format('YYYY-MM-DD hh:mm A')
 
             const { email, password } = req.body;
