@@ -118,29 +118,29 @@ const loginUser = async (req, res, next) => {
                                         
                                         auth.verifyIdToken(idToken)
                                         
-                                            .then(function (decodedToken) {
+                                                .then(function (decodedToken) {
 
-                                            
-                                                if (decodedToken.uid === user.uid) {
                                                     
-                                                    req.user = user.uid
-                                                    let uid = user.uid
-                                                    let displayName = user.displayName
-                                                    let photoURL = user.photoURL
-                                                    console.log(uid + " " + displayName + " " + email  + " " + photoURL)
-                                                    res.cookie("uid", uid,{maxAge: 3600000});
-                                                    res.cookie("displayName", displayName);
-                                                    res.cookie("photoURL", photoURL);
-                                                    res.cookie("email", email);
-                                                    res.cookie("role", decodedToken.role);
-                                                    res.locals.role = decodedToken.role;
+                                                        if (decodedToken.uid === user.uid) {
+                                                            
+                                                            req.user = user.uid
+                                                            let uid = user.uid
+                                                            let displayName = user.displayName
+                                                            let photoURL = user.photoURL
+                                                            console.log(uid + " " + displayName + " " + email  + " " + photoURL)
+                                                            res.cookie("uid", uid,{maxAge: 3600000});
+                                                            res.cookie("displayName", displayName);
+                                                            res.cookie("photoURL", photoURL);
+                                                            res.cookie("email", email);
+                                                            res.cookie("role", decodedToken.role);
+                                                            res.locals.role = decodedToken.role;
 
-                                                let user_role = decodedToken.role
-                                                    console.log(user_role)   
+                                                         let user_role = decodedToken.role
+                                                            console.log(user_role)   
 
-                                                    handleResSuccess(res, 'success', idToken, res.statusCode)
+                                                            handleResSuccess(res, 'success', idToken, res.statusCode)
 
-                                                }
+                                                        }
                                                 }).catch(function (error) {
                                                     //Handle error
                                                     err = {
@@ -149,38 +149,38 @@ const loginUser = async (req, res, next) => {
                                                     handleResError(res, err, res.statusCode)
 
                                                 });
-                                        } else {
-                                            err = {
-                                                message: error.message,
-                                            };
-                                            handleResError(res, err, res.statusCode)
-                                        }
-
-                                    }).catch(function (error) {
+                                    } else {
                                         err = {
                                             message: error.message,
                                         };
                                         handleResError(res, err, res.statusCode)
+                                    }
 
-                                                })
+                             }).catch(function (error) {
+                                err = {
+                                    message: error.message,
+                                };
+                                handleResError(res, err, res.statusCode)
 
                                         })
-                                        .catch(function (error) {
-                                        
-                                            
-                                            err = {
-                                                message: 'danger ' +error.message + ' You are still yet to be approved by the Admin.',
-                                            };
-                                            handleResError(res, err, res.statusCode)                                                                                                            })
-                                    }
-                                    else{
-                                    
-                                        err = {
-                                            message: "User with this credentials does not exist or is yet to be approved."
-                                        };
-                                        handleResError(res, err, res.statusCode)
 
-                         }
+                            })
+                            .catch(function (error) {
+                            
+                                
+                                err = {
+                                    message: error.message ,
+                                };
+                                handleResError(res, err, res.statusCode)                                                                                                            })
+                        }
+                        else{
+                        
+                            err = {
+                                message: "User with this credentials does not exist."
+                            };
+                            handleResError(res, err, res.statusCode)
+
+                }
             }
         })
     }
