@@ -105,9 +105,9 @@ const loginUser = async (req, res, next) => {
                                 else {
                                             let check = bcrypt.compareSync(password, hashed_password)
             if (check) {   
-                firebase_auth.signInWithEmailAndPassword(email,hashed_password)
+                // firebase_auth.signInWithEmailAndPassword(email,hashed_password)
 
-                // firebase_auth.signInWithEmailAndPassword(email, password)
+                 firebase_auth.signInWithEmailAndPassword(email, password)
                         .then(function () {
                             firebase_auth.currentUser.getIdToken(true)
                                 .then(function (idToken) {
