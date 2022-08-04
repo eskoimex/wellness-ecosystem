@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 5
 app.use(bodyParser.json({limit: '25mb'}));
 
 /////
-const config = require('./app/config/config');
+const config = require('./app/config/fbconfig');
 
 //ROUTES
 // const helpersRoutes = require('./app/routes/helpers.routes');

@@ -24,7 +24,7 @@ const {
 } = process.env;
 
 assert(PORT, 'PORT is required');
-assert(HOST, 'HOST is required');
+// assert(HOST, 'HOST is required');
 
 module.exports = {
     name: NAME,
