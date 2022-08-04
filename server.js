@@ -74,4 +74,4 @@ app.use('/api/v1/auth/', authRoutes.routes);
 // declare paths in routes
 // app.use('/', authRoutes.routes);
 
-app.listen(config.port, () => console.log(`${config.name} is listening on url ${config.host} at ` + config.port));
+app.listen(config.port, () => console.log(`${config.name} is listening on the url ${config.host} at ` + config.port));
