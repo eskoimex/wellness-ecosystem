@@ -74,4 +74,8 @@ app.use('/api/v1/auth/', authRoutes.routes);
 // declare paths in routes
 // app.use('/', authRoutes.routes);
 
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
+  });
+
 app.listen(config.port, () => console.log(`${config.name} is listening on the url ${config.host} at ` + config.port));
