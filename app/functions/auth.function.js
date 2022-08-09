@@ -47,18 +47,13 @@ const registerUser = async (req, res, next) => {
                                         isEmailVerified: false
                                 }).then( async () => {
 
-                                    const data = ({
+                                    const data = {
                                         user_id: uuid,
                                         token: emailVerificationTtoken
-                                      })
+                                      }
 
                                       await db.collection('verification_token').add(data)
-                                    //   .then(()=>{
-                    
-                                    // }).catch((error)=>{
-                                    //     res.json("Error", error, error.message)
-                    
-                                    // })
+                                  
                                  
                                           let user = userDetails.toJSON();
                                           emailVerificationLink(emailVerificationTtoken, user.email, fullname, user, res, req)
