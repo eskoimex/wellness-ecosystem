@@ -197,7 +197,7 @@ const verifyEmail = async (req, res, next) => {
             .catch((error) => {
     
               err = {
-                message : `User does not exist. ${error.message}.`
+                message : `User does not exist2. ${error.message}.`
               };
               handleResError(res, err, res.statusCode);
                 
