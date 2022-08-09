@@ -169,7 +169,7 @@ const verifyEmail = async (req, res, next) => {
                  db.collection("verification_token")
                     .where("token", "==",  req.query.token)
                     .get()
-                    companyQuerySnapshot.forEach( (doc) => {
+                    companyQuerySnapshot.forEach( async (doc) => {
                         
                         if(doc){
 
