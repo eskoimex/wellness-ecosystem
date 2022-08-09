@@ -1,4 +1,6 @@
-const sgMail = require('@sendgrid/mail')
+const { handleResError } = require("../err.util");
+const { handleResSuccess } = require("../success.util");
+sgMail = require('@sendgrid/mail')
 
 //module.exports = 
 function emailVerificationLink(token, email, fullname, user, res, req) {
