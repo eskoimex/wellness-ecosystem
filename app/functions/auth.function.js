@@ -124,7 +124,7 @@ const verifyEmail = async (req, res, next) => {
                       message : 'This email is already verified!'
                     }
                     handleResError(res, err, res.statusCode); 
-  
+                     return;
                 } else {
                     console.log("Email is not verified")
                       //////CHECK IF LINK IS VALID/////
