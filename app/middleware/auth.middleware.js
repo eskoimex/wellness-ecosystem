@@ -1,37 +1,10 @@
 'use strict';
-const { auth } = require('../utils/db')
+const { auth} = require('../utils/db')
 const { handleResError } = require("../utils/err.util");
 const Multer = require('multer');
 
 
-
-// verifyToken = (req, res, next) => {
-//   // let token = req.headers["x-access-token"]; //works
-//   //  let token = authorization.split(' ')[1];  //works
- 
-//    const { authorization } = req.headers;
-//    let token = req.headers['x-access-token'] || authorization.split(' ')[1]; 
-    
- 
-//    if (!token) {
-//      return res.status(403).send({
-//        message: "No token provided!"
-//      });
-//    }
- 
-//    jwt.verify(token, config.SECRET, (err, decoded) => {
-//      if (err) {
-//        return res.status(401).send({
-//          message: "Unauthorized!"
-//        });
-//      }
-//      req.userId = decoded.id;
-//      next();
-//    });
-//  };
- 
-
-const checkIfAuthenticated = (req, res, next) => {
+const getAuthToken = (req, res, next) => {
   if (
     req.headers.authorization &&
     req.headers.authorization.split(' ')[0] === 'Bearer'
@@ -46,7 +19,7 @@ const checkIfAuthenticated = (req, res, next) => {
 };
 
 
-const checkIfAuthenticated2 = (req, res, next) => {
+const checkIfAuthenticated = (req, res, next) => {
  getAuthToken(req, res, async () => {
 let err;
     try {
@@ -95,4 +68,4 @@ return multer.single('avatar')
 
 }
 
-module.exports = { checkIfAuthenticated, checkIfAuthenticated2, checkIfUserAuthenticated, checkUpload }
+module.exports = { checkIfAuthenticated, checkIfUserAuthenticated, checkUpload }
