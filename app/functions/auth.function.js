@@ -88,8 +88,9 @@ const registerUser = async (req, res, next) => {
 const verifyEmail = async (req, res, next) => {
     let err;
     try {
-   
-      db.collection("users").where("email", "==", req.query.email)
+       let email = req.query.email
+       console.log(email)
+      db.collection("users").where("email", "==", email)
       .get()
         .then( async user => {
               //////CHECK IF EMAIL IS VERIFIED/////
@@ -102,17 +103,18 @@ const verifyEmail = async (req, res, next) => {
                 } else {
                       //////CHECK IF LINK IS VALID/////
                
-                    db.collection("users").where("email", "==", req.query.email)
-                        .get()
-                       .then(user => {
+                    // db.collection("users").where("email", "==", email)
+                    //     .get()
+                    //    .then(user => {
                           if (!user) {
                             err= {
-                                message : `Invalid link - ${user} ${req.query.email}`
+                                message : `Invalid link - ${user} ${email}`
                               }
                               handleResError(res, err, res.statusCode); 
+                              return;
                           }
-                          return;
-                        })
+                        //   return;
+                       // })
   
   
                  
@@ -144,7 +146,7 @@ const verifyEmail = async (req, res, next) => {
 
                           let dataUpdate = {isEmailVerified: true}
                         //   await User.update(data1 ,{
-                        //            where: {email: req.query.email}
+                        //            where: {email: email}
                         // });
 
                           await db.collection('users').doc(cid)
