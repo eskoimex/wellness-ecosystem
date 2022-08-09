@@ -148,7 +148,7 @@ const verifyEmail = async (req, res, next) => {
                     .where("user_id", "==", user_id)
                     .where("token", "==",  req.query.token)
                     .get()
-                    // .then(token => {
+                    .then(function (companyQuerySnapshot) {
                         companyQuerySnapshot.forEach( (doc) => {
                             let token = doc.data().token
                             if (!token) {
@@ -162,13 +162,15 @@ const verifyEmail = async (req, res, next) => {
                             }
                         );
                     
-                    //})
+                    })
   
                     //UPDATE isEmailVerified TO TRUE
                  
                  db.collection("verification_token")
                     .where("token", "==",  req.query.token)
                     .get()
+                    .then(function (companyQuerySnapshot) {
+
                     companyQuerySnapshot.forEach( async (doc) => {
                         
                         if(doc){
@@ -202,6 +204,7 @@ const verifyEmail = async (req, res, next) => {
                             handleResError(res, err, res.statusCode); 
                           }
                       })
+                    })
                       .catch(error => {
                           err= {
                             message : `Invalid Token! ${error.message}`
