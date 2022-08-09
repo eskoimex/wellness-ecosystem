@@ -94,7 +94,7 @@ const verifyEmail = async (req, res, next) => {
     //   .get()
     //     .then( async user => {
 
-        db.collection("users").where("email", "==", "samuel.imex@gmail.com")
+        db.collection("users").where("email", "==", email)
         .get()
         .then(function (querySnapshot) {
               if (querySnapshot.empty) {
@@ -185,7 +185,7 @@ const verifyEmail = async (req, res, next) => {
                         // });
 
                           await db.collection('users').doc(id)
-                                      .update({dataUpdate})
+                                      .update(dataUpdate)
         
                         let user_token = {token : token}
                         handleResSuccess(res,`User with ${email} is successfully verified` , user_token, res.statusCode);
