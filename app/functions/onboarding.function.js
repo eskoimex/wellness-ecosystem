@@ -10,6 +10,7 @@ const moment = require('moment');
 const onBoardUser = async (req, res, next) => {
   try {
     if (req.cookies.uid) {
+
       let uid = req.cookies.uid;
         // get form data from from front end.
         const blood_group = req.body.blood_group;

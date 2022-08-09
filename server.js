@@ -39,8 +39,8 @@ const config = require('./app/config/config');
 // const helpersRoutes = require('./app/routes/helpers.routes');
 ////////////
 const authRoutes = require('./app/routes/auth.routes');
-const onboardingRoutes = require('./app/routes/onboarding.routes');
-// const dashboardRoutes = require('./app/routes/dashboard.routes');
+const onboardingRoutes = require('./app/routes/appointment.routes');
+const appointmentRoutes = require('./app/routes/onboarding.routes');
 // const entityRoutes = require('./app/routes/entity.routes');
 // const adminUsersRoutes = require('./app/routes/admin_users.routes');
 // const devicesRoutes = require('./routes/users.routes');
@@ -54,6 +54,7 @@ const onboardingRoutes = require('./app/routes/onboarding.routes');
 // BACK ENDPOINTS
 app.use('/api/v1/auth/', authRoutes.routes);
 app.use('/api/v1/', onboardingRoutes.routes);
+app.use('/api/v1/', appointmentRoutes.routes);
 
 // app.use('/api', dashboardRoutes.routes);
 // app.use('/api', entityRoutes.routes);
