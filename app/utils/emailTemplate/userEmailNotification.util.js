@@ -8,7 +8,7 @@ function emailVerificationLink(token, email, fullname, user, res, req) {
             sgMail.setApiKey('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')
 
 
-			let verification_link = `https://wellness-ecosystem.herokuapp.com/api/v1/email_verification?token=${token}&email=${email}`
+			let verification_link = `https://wellness-ecosystem.herokuapp.com/api/v1/auth/email_verification?token=${token}&email=${email}`
 
 
                     const msg = {
