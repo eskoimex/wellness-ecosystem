@@ -93,7 +93,7 @@ const verifyEmail = async (req, res, next) => {
       .get()
         .then( async user => {
               //////CHECK IF EMAIL IS VERIFIED/////
-                if (user.isVerified) {
+                if (user.isEmailVerified) {
                     err= {
                       message : 'This email is already verified!'
                     }
