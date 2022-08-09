@@ -4,7 +4,7 @@ const { userOnboarding } = require('../controllers/backend/onboarding.backend.co
 const router = express.Router();
 
 
-router.post('/onbording', userOnboarding);
+router.post('/onboarding', userOnboarding);
 
 
 
