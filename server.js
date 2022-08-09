@@ -39,8 +39,8 @@ const config = require('./app/config/config');
 // const helpersRoutes = require('./app/routes/helpers.routes');
 ////////////
 const authRoutes = require('./app/routes/auth.routes');
-const onboardingRoutes = require('./app/routes/appointment.routes');
-const appointmentRoutes = require('./app/routes/onboarding.routes');
+const onboardingRoutes = require('./app/routes/onboarding.routes');
+const appointmentRoutes = require('./app/routes/appointment.routes');
 // const entityRoutes = require('./app/routes/entity.routes');
 // const adminUsersRoutes = require('./app/routes/admin_users.routes');
 // const devicesRoutes = require('./routes/users.routes');
