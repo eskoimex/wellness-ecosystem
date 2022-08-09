@@ -25,12 +25,20 @@ let err;
     try {
       const { authToken } = req;
       console.log(authToken)
+      if (!authToken) {
+        return res.status(403).send({
+          message: "No token provided!"
+        });
+      }
+    
       const userInfo = await auth.verifyIdToken(authToken);
       req.authId = userInfo.uid;
       return next();
     } catch (e) {
         err = {
-            message: `You are not authorized to view this page, ${e}`
+            message: `Unauthorized!`
+            //message: `You are not authorized to view this page, ${e}`
+
         }
         handleResError(res, err, res.statusCode);
     }
