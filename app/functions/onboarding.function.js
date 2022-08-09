@@ -37,6 +37,8 @@ const onBoardUser = async (req, res, next) => {
           
         
 
+      }else{
+        res.send("Something went wrong")
       }
   } catch (e) {
       console.log("error", e)
