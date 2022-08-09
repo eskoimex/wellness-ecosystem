@@ -102,7 +102,7 @@ const verifyEmail = async (req, res, next) => {
                     message : `User does not exist. ${error.message}.`
                   };
                   handleResError(res, err, res.statusCode);
-                    
+                     return;
               }
               //////CHECK IF EMAIL IS VERIFIED/////
                 if (user.isEmailVerified) {
@@ -146,7 +146,7 @@ const verifyEmail = async (req, res, next) => {
   
                     //UPDATE isEmailVerified TO TRUE
                  
-                   await db.collection("verification_token")
+                 db.collection("verification_token")
                     .where("token", "==",  req.query.token)
                     .get()
                       .then( async (foundToken) => {
