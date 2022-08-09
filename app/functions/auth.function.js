@@ -45,7 +45,7 @@ const registerUser = async (req, res, next) => {
                                         createdAt: createdAt,
                                         user_id: uuid,
                                         isEmailVerified: false
-                                }).then(() => {
+                                }).then( async () => {
 
                                     const data = ({
                                         user_id: uuid,
