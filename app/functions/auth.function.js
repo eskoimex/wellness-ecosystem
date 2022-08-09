@@ -90,9 +90,20 @@ const verifyEmail = async (req, res, next) => {
     try {
        let email = req.query.email
        console.log(email)
-      db.collection("users").where("email", "==", email)
-      .get()
-        .then( async user => {
+    //   db.collection("users").where("email", "==", email)
+    //   .get()
+    //     .then( async user => {
+
+        db.collection("users").where("email", "==", "samuel.imex@gmail.com")
+        .get()
+        .then(function (querySnapshot) {
+              if (querySnapshot.empty) {
+                err = {
+                    message : `User does not exist. ${error.message}.`
+                  };
+                  handleResError(res, err, res.statusCode);
+                    
+              }
               //////CHECK IF EMAIL IS VERIFIED/////
                 if (user.isEmailVerified) {
                     err= {
@@ -175,9 +186,15 @@ const verifyEmail = async (req, res, next) => {
                           }
                           handleResError(res, err, res.statusCode);
                       });
+
+                      
   
-            }
-            }).catch((error) => {
+             }
+             
+
+             
+            })
+            .catch((error) => {
     
               err = {
                 message : `User does not exist. ${error.message}.`
