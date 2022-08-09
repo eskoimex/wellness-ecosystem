@@ -126,6 +126,7 @@ const verifyEmail = async (req, res, next) => {
                     handleResError(res, err, res.statusCode); 
   
                 } else {
+                    console.log("Email is not verified")
                       //////CHECK IF LINK IS VALID/////
                
                     // db.collection("users").where("email", "==", email)
@@ -143,38 +144,22 @@ const verifyEmail = async (req, res, next) => {
   
   
                  
-                    
+                    console.log(user_id ,  req.query.token)
                     db.collection("verification_token")
                     .where("user_id", "==", user_id)
                     .where("token", "==",  req.query.token)
                     .get()
                     .then(function (companyQuerySnapshot) {
-                        companyQuerySnapshot.forEach( (doc) => {
-                            let token = doc.data().token
-                            if (!token) {
-                                err= {
-                                    message : 'Invalid Token'
-                                  }
-                                  handleResError(res, err, res.statusCode); 
+                        if (companyQuerySnapshot.empty) {
+                            err= {
+                                message : 'Invalid Token'
                               }
-                              return;
-                               
-                            }
-                        );
-                    
-                    })
-  
-                    //UPDATE isEmailVerified TO TRUE
-                 
-                 db.collection("verification_token")
-                    .where("token", "==",  req.query.token)
-                    .get()
-                    .then(function (companyQuerySnapshot) {
+                              handleResError(res, err, res.statusCode); 
+                                 return;
+                          }
+                        companyQuerySnapshot.forEach( async (doc) => {
 
-                    companyQuerySnapshot.forEach( async (doc) => {
-                        
-                        if(doc){
-
+                                
                            let id = doc.id
                            console.log("id", id) 
                            let token = doc.data().token
@@ -184,7 +169,7 @@ const verifyEmail = async (req, res, next) => {
                         //            where: {email: email}
                         // });
 
-                          await db.collection('users').doc(id)
+                          await db.collection('users').doc(user_id)
                                       .update(dataUpdate)
         
                         let user_token = {token : token}
@@ -196,21 +181,59 @@ const verifyEmail = async (req, res, next) => {
                         // })
                         await db.collection('verification_token').doc(id).delete();
 
-  
-                          } else {
-                            err= {
-                              message : 'No Token found for this user!'
+                            
                             }
-                            handleResError(res, err, res.statusCode); 
-                          }
-                      })
+                        );
+                    
                     })
-                      .catch(error => {
-                          err= {
-                            message : `Invalid Token! ${error.message}`
-                          }
-                          handleResError(res, err, res.statusCode);
-                      });
+  
+                    //UPDATE isEmailVerified TO TRUE
+                 
+                //  db.collection("verification_token")
+                //     .where("token", "==",  req.query.token)
+                //     .get()
+                //     .then(function (companyQuerySnapshot) {
+
+                //     companyQuerySnapshot.forEach( async (doc) => {
+                        
+                //         if(doc){
+
+                //            let id = doc.id
+                //            console.log("id", id) 
+                //            let token = doc.data().token
+
+                //           let dataUpdate = {isEmailVerified: true}
+                //         //   await User.update(data1 ,{
+                //         //            where: {email: email}
+                //         // });
+
+                //           await db.collection('users').doc(id)
+                //                       .update(dataUpdate)
+        
+                //         let user_token = {token : token}
+                //         handleResSuccess(res,`User with ${email} is successfully verified` , user_token, res.statusCode);
+  
+                //          // DELETE TOKEN AFTER VERIFICATION AND UPDATE isVerified to false///
+                //         //  await VerificationToken.destroy({
+                //         //   where: {token : req.query.token}
+                //         // })
+                //         await db.collection('verification_token').doc(id).delete();
+
+  
+                //           } else {
+                //             err= {
+                //               message : 'No Token found for this user!'
+                //             }
+                //             handleResError(res, err, res.statusCode); 
+                //           }
+                //       })
+                //     })
+                //       .catch(error => {
+                //           err= {
+                //             message : `Invalid Token! ${error.message}`
+                //           }
+                //           handleResError(res, err, res.statusCode);
+                //       });
 
                       
   
