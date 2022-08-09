@@ -88,13 +88,13 @@ const registerUser = async (req, res, next) => {
 const verifyEmail = async (req, res, next) => {
     let err;
     try {
-       let email = req.query.email
+       const email = req.query.email
        console.log(email)
     //   db.collection("users").where("email", "==", email)
     //   .get()
     //     .then( async user => {
 
-        db.collection("users").where("email", "==", "samuel.imex@gmail.com")
+        db.collection("users").where("email", "==", email)
         .get()
         .then(function (querySnapshot) {
               if (querySnapshot.empty) {
@@ -104,6 +104,12 @@ const verifyEmail = async (req, res, next) => {
                   handleResError(res, err, res.statusCode);
                      return;
               }
+
+            //   let hashed_password;
+
+            //   querySnapshot.forEach(function (doc) {
+            //       hashed_password = doc.data().password
+            //   })
               //////CHECK IF EMAIL IS VERIFIED/////
                 if (user.isEmailVerified) {
                     err= {
