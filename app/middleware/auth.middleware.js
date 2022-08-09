@@ -1,8 +1,35 @@
 'use strict';
-const { auth} = require('../utils/db')
+const { auth } = require('../utils/db')
 const { handleResError } = require("../utils/err.util");
 const Multer = require('multer');
 
+
+
+// verifyToken = (req, res, next) => {
+//   // let token = req.headers["x-access-token"]; //works
+//   //  let token = authorization.split(' ')[1];  //works
+ 
+//    const { authorization } = req.headers;
+//    let token = req.headers['x-access-token'] || authorization.split(' ')[1]; 
+    
+ 
+//    if (!token) {
+//      return res.status(403).send({
+//        message: "No token provided!"
+//      });
+//    }
+ 
+//    jwt.verify(token, config.SECRET, (err, decoded) => {
+//      if (err) {
+//        return res.status(401).send({
+//          message: "Unauthorized!"
+//        });
+//      }
+//      req.userId = decoded.id;
+//      next();
+//    });
+//  };
+ 
 
 const checkIfAuthenticated = (req, res, next) => {
   if (
