@@ -44,7 +44,9 @@ const registerUser = async (req, res, next) => {
                                         role: "User",
                                         createdAt: createdAt,
                                         user_id: uuid,
-                                        isEmailVerified: false
+                                        isEmailVerified: false,
+                                        isAppointmentApproved: false,
+                                        isPaymentConfirmed: false
                                 }).then( async () => {
 
                                     const data = {
@@ -89,11 +91,7 @@ const verifyEmail = async (req, res, next) => {
     let err;
     try {
        const email = req.query.email
-       console.log(email)
-    //   db.collection("users").where("email", "==", email)
-    //   .get()
-    //     .then( async user => {
-
+    
         db.collection("users").where("email", "==", email)
         .get()
         .then(function (querySnapshot) {
@@ -105,11 +103,7 @@ const verifyEmail = async (req, res, next) => {
                      return;
               }
 
-            //   let hashed_password;
-
-            //   querySnapshot.forEach(function (doc) {
-            //       hashed_password = doc.data().password
-            //   })
+           
             let isEmailVerified;
             let user_id;
 
@@ -128,23 +122,7 @@ const verifyEmail = async (req, res, next) => {
                 } else {
                     console.log("Email is not verified")
                       //////CHECK IF LINK IS VALID/////
-               
-                    // db.collection("users").where("email", "==", email)
-                    //     .get()
-                    //    .then(user => {
-                        //   if (!user) {
-                        //     err= {
-                        //         message : `Invalid link - ${user} ${email}`
-                        //       }
-                        //       handleResError(res, err, res.statusCode); 
-                        //       return;
-                        //   }
-                        //   return;
-                       // })
-  
-  
-                 
-                    console.log(user_id ,  req.query.token)
+              
                     db.collection("verification_token")
                     .where("user_id", "==", user_id)
                     .where("token", "==",  req.query.token)
@@ -165,9 +143,6 @@ const verifyEmail = async (req, res, next) => {
                            let token = doc.data().token
 
                           let dataUpdate = {isEmailVerified: true}
-                        //   await User.update(data1 ,{
-                        //            where: {email: email}
-                        // });
 
                           await db.collection('users').doc(user_id)
                                       .update(dataUpdate)
@@ -176,9 +151,6 @@ const verifyEmail = async (req, res, next) => {
                         handleResSuccess(res,`User with ${email} is successfully verified` , user_token, res.statusCode);
   
                          // DELETE TOKEN AFTER VERIFICATION AND UPDATE isVerified to false///
-                        //  await VerificationToken.destroy({
-                        //   where: {token : req.query.token}
-                        // })
                         await db.collection('verification_token').doc(id).delete();
 
                             
@@ -187,70 +159,13 @@ const verifyEmail = async (req, res, next) => {
                     
                     })
   
-                    //UPDATE isEmailVerified TO TRUE
-                 
-                //  db.collection("verification_token")
-                //     .where("token", "==",  req.query.token)
-                //     .get()
-                //     .then(function (companyQuerySnapshot) {
-
-                //     companyQuerySnapshot.forEach( async (doc) => {
-                        
-                //         if(doc){
-
-                //            let id = doc.id
-                //            console.log("id", id) 
-                //            let token = doc.data().token
-
-                //           let dataUpdate = {isEmailVerified: true}
-                //         //   await User.update(data1 ,{
-                //         //            where: {email: email}
-                //         // });
-
-                //           await db.collection('users').doc(id)
-                //                       .update(dataUpdate)
-        
-                //         let user_token = {token : token}
-                //         handleResSuccess(res,`User with ${email} is successfully verified` , user_token, res.statusCode);
-  
-                //          // DELETE TOKEN AFTER VERIFICATION AND UPDATE isVerified to false///
-                //         //  await VerificationToken.destroy({
-                //         //   where: {token : req.query.token}
-                //         // })
-                //         await db.collection('verification_token').doc(id).delete();
-
-  
-                //           } else {
-                //             err= {
-                //               message : 'No Token found for this user!'
-                //             }
-                //             handleResError(res, err, res.statusCode); 
-                //           }
-                //       })
-                //     })
-                //       .catch(error => {
-                //           err= {
-                //             message : `Invalid Token! ${error.message}`
-                //           }
-                //           handleResError(res, err, res.statusCode);
-                //       });
-
-                      
   
              }
              
 
              
             })
-        //     .catch((error) => {
-    
-        //       err = {
-        //         message : `User does not exist2. ${error.message}.`
-        //       };
-        //       handleResError(res, err, res.statusCode);
-                
-        // });
-    
+ 
     } catch (error) {
       err = {
         message: `Error when trying send email: ${error.message}`,

@@ -39,6 +39,7 @@ const config = require('./app/config/config');
 // const helpersRoutes = require('./app/routes/helpers.routes');
 ////////////
 const authRoutes = require('./app/routes/auth.routes');
+const onboardingRoutes = require('./app/routes/onboarding.routes');
 // const dashboardRoutes = require('./app/routes/dashboard.routes');
 // const entityRoutes = require('./app/routes/entity.routes');
 // const adminUsersRoutes = require('./app/routes/admin_users.routes');
@@ -52,6 +53,8 @@ const authRoutes = require('./app/routes/auth.routes');
 
 // BACK ENDPOINTS
 app.use('/api/v1/auth/', authRoutes.routes);
+app.use('/api/v1/', onboardingRoutes.routes);
+
 // app.use('/api', dashboardRoutes.routes);
 // app.use('/api', entityRoutes.routes);
 // app.use('/api', adminUsersRoutes.routes);
