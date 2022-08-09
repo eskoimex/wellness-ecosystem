@@ -9,7 +9,7 @@ const moment = require('moment');
 
 const onBoardUser = async (req, res, next) => {
   try {
-    if (req.cookies.uid) {
+    // if (req.cookies.uid) {
 
       let uid = req.cookies.uid;
         // get form data from from front end.
@@ -37,9 +37,9 @@ const onBoardUser = async (req, res, next) => {
           
         
 
-      }else{
-        res.send("Something went wrong")
-      }
+      // }else{
+      //   res.send("Token has expired")
+      // }
   } catch (e) {
       console.log("error", e)
         handleResError(res, e, res.statusCode);     

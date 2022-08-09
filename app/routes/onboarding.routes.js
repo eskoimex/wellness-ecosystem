@@ -1,10 +1,11 @@
 const express = require('express');
+const { checkIfAuthenticated } = require('../middleware/auth.middleware');
 const { userOnboarding } = require('../controllers/backend/onboarding.backend.controller');
 
 const router = express.Router();
 
 
-router.post('/onboarding', userOnboarding);
+router.post('/onboarding', checkIfAuthenticated, userOnboarding);
 
 
 

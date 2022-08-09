@@ -4,7 +4,7 @@ const { handleResError } = require("../utils/err.util");
 const Multer = require('multer');
 
 
-const getAuthToken = (req, res, next) => {
+const checkIfAuthenticated = (req, res, next) => {
   if (
     req.headers.authorization &&
     req.headers.authorization.split(' ')[0] === 'Bearer'
@@ -19,7 +19,7 @@ const getAuthToken = (req, res, next) => {
 };
 
 
-const checkIfAuthenticated = (req, res, next) => {
+const checkIfAuthenticated2 = (req, res, next) => {
  getAuthToken(req, res, async () => {
 let err;
     try {
@@ -68,4 +68,4 @@ return multer.single('avatar')
 
 }
 
-module.exports = { checkIfAuthenticated, checkIfUserAuthenticated, checkUpload }
+module.exports = { checkIfAuthenticated, checkIfAuthenticated2, checkIfUserAuthenticated, checkUpload }
