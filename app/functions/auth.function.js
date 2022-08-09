@@ -94,7 +94,7 @@ const verifyEmail = async (req, res, next) => {
     //   .get()
     //     .then( async user => {
 
-        db.collection("users").where("email", "==", email)
+        db.collection("users").where("email", "==", "samuel.imex@gmail.com")
         .get()
         .then(function (querySnapshot) {
               if (querySnapshot.empty) {
