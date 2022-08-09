@@ -43,8 +43,23 @@ const registerUser = async (req, res, next) => {
                                         password: hash,
                                         role: "User",
                                         createdAt: createdAt,
-                                        user_id: uuid
+                                        user_id: uuid,
+                                        isEmailVerified: false
                                 }).then(() => {
+
+                                    const data = ({
+                                        user_id: uuid,
+                                        token: emailVerificationTtoken
+                                      })
+
+                                      await db.collection('verification_token').add(data)
+                                    //   .then(()=>{
+                    
+                                    // }).catch((error)=>{
+                                    //     res.json("Error", error, error.message)
+                    
+                                    // })
+                                 
                                           let user = userDetails.toJSON();
                                           emailVerificationLink(emailVerificationTtoken, user.email, fullname, user, res, req)
 
@@ -73,6 +88,116 @@ const registerUser = async (req, res, next) => {
 
 };
 
+
+//EMAIL VERIFICATION
+const verifyEmail = async (req, res, next) => {
+    let err;
+    try {
+   
+      db.collection("users").where("email", "==", req.query.email)
+      .get()
+        .then( async user => {
+              //////CHECK IF EMAIL IS VERIFIED/////
+                if (user.isVerified) {
+                    err= {
+                      message : 'This email is already verified!'
+                    }
+                    handleResError(res, err, res.statusCode); 
+  
+                } else {
+                      //////CHECK IF LINK IS VALID/////
+               
+                    db.collection("users").where("email", "==", req.query.email)
+                        .get()
+                       .then(user => {
+                          if (!user) {
+                            err= {
+                                message : `Invalid link - ${user} ${req.query.email}`
+                              }
+                              handleResError(res, err, res.statusCode); 
+                          }
+                          return;
+                        })
+  
+  
+                 
+                    
+                    db.collection("verification_token")
+                    .where("user_id", "==", user.uid)
+                    .where("token", "==",  req.query.token)
+                    .get()
+                    .then(token => {
+                      if (!token) {
+                        err= {
+                            message : 'Invalid Token'
+                          }
+                          handleResError(res, err, res.statusCode); 
+                      }
+                      return;
+                    })
+  
+                    //UPDATE isEmailVerified TO TRUE
+                 
+                   await db.collection("verification_token")
+                    .where("token", "==",  req.query.token)
+                    .get()
+                      .then( async (foundToken) => {
+                        if(foundToken){
+
+                           let id = foundToken.user_id
+                           console.log("id", id) 
+
+                          let dataUpdate = {isEmailVerified: true}
+                        //   await User.update(data1 ,{
+                        //            where: {email: req.query.email}
+                        // });
+
+                          await db.collection('users').doc(cid)
+                                      .update({dataUpdate})
+        
+                        let user_token = {token : foundToken.token}
+                        handleResSuccess(res,`User with ${user.email} is successfully verified` , user_token, res.statusCode);
+  
+                         // DELETE TOKEN AFTER VERIFICATION AND UPDATE isVerified to false///
+                        //  await VerificationToken.destroy({
+                        //   where: {token : req.query.token}
+                        // })
+                        await db.collection('verification_token').doc(id).delete();
+
+  
+                          } else {
+                            err= {
+                              message : 'No Token found for this user!'
+                            }
+                            handleResError(res, err, res.statusCode); 
+                          }
+                      })
+                      .catch(error => {
+                          err= {
+                            message : `Invalid Token! ${error.message}`
+                          }
+                          handleResError(res, err, res.statusCode);
+                      });
+  
+            }
+            }).catch((error) => {
+    
+              err = {
+                message : `User does not exist. ${error.message}.`
+              };
+              handleResError(res, err, res.statusCode);
+                
+        });
+    
+    } catch (error) {
+      err = {
+        message: `Error when trying send email: ${error.message}`,
+      };
+       handleResError(res, err, res.statusCode);
+    }
+  };
+  
+  
 
 
 const loginUser = async (req, res, next) => {
@@ -206,4 +331,4 @@ const loginUser = async (req, res, next) => {
 
 
 
-module.exports = { registerUser, loginUser}
+module.exports = { registerUser, verifyEmail, loginUser}

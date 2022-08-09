@@ -3,7 +3,7 @@ const { db, auth, firebase_auth} = require('../../utils/db')
 const { handleResError } = require("../../utils/err.util");
 const { handleResSuccess } = require("../../utils/success.util");
 
-const { registerUser, loginUser } = require("../../functions/auth.function");
+const { registerUser, verifyEmail, loginUser } = require("../../functions/auth.function");
 const {
   validateRegistrationData,
   validateLoginData,
@@ -16,6 +16,15 @@ const userRegistration = async (req, res, next) => {
        let { err, value } = await validateRegistrationData(req.body);
        if (err) handleResError(res, err, res.statusCode);
         await registerUser(req,res);
+  } catch (e) {
+        handleResError(res, e, res.statusCode);
+  }
+};
+
+
+const userEmailVerification = async (req, res, next) => {    
+  try { 
+        await verifyEmail(req,res);
   } catch (e) {
         handleResError(res, e, res.statusCode);
   }
