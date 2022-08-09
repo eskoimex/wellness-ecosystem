@@ -4,7 +4,9 @@ const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const { handleResSuccess } = require("../utils/success.util");
 const { handleResError } = require("../utils/err.util");
+var randomString = require('random-string');
 
+const { emailVerificationLink } = require("../utils/emailTemplate/userEmailNotification.util");
 
 const registerUser = async (req, res, next) => {
  let err; 
@@ -19,6 +21,8 @@ const registerUser = async (req, res, next) => {
         const saltRounds = 10;
         await bcrypt.hash(password,saltRounds,(error,hash)=>{ 
         const fullname = firstname+" "+lastname;
+        let emailVerificationTtoken =  randomString({length: 32, special: false});
+
                     // create user account-
                     auth.createUser({
                         email: email,
@@ -42,7 +46,9 @@ const registerUser = async (req, res, next) => {
                                         user_id: uuid
                                 }).then(() => {
                                           let user = userDetails.toJSON();
-                                          handleResSuccess(res, "success", user, res.statusCode);  
+                                          emailVerificationLink(emailVerificationTtoken, user.email, fullname, user, res, req)
+
+                                          //handleResSuccess(res, "success", user, res.statusCode);  
                                     }).catch((error)=>{
                                                 console.log(error.message)
                                                 err = {
