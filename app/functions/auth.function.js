@@ -99,7 +99,7 @@ const verifyEmail = async (req, res, next) => {
         .then(function (querySnapshot) {
               if (querySnapshot.empty) {
                 err = {
-                    message : `User does not exist. ${error.message}.`
+                    message : `User does not exist.`
                   };
                   handleResError(res, err, res.statusCode);
                      return;
@@ -110,8 +110,16 @@ const verifyEmail = async (req, res, next) => {
             //   querySnapshot.forEach(function (doc) {
             //       hashed_password = doc.data().password
             //   })
+            let isEmailVerified;
+            let user_id;
+
               //////CHECK IF EMAIL IS VERIFIED/////
-                if (user.isEmailVerified) {
+              querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                isEmailVerified = doc.data().isEmailVerified
+                user_id = doc.id
+            });
+                if (isEmailVerified) {
                     err= {
                       message : 'This email is already verified!'
                     }
@@ -123,13 +131,13 @@ const verifyEmail = async (req, res, next) => {
                     // db.collection("users").where("email", "==", email)
                     //     .get()
                     //    .then(user => {
-                          if (!user) {
-                            err= {
-                                message : `Invalid link - ${user} ${email}`
-                              }
-                              handleResError(res, err, res.statusCode); 
-                              return;
-                          }
+                        //   if (!user) {
+                        //     err= {
+                        //         message : `Invalid link - ${user} ${email}`
+                        //       }
+                        //       handleResError(res, err, res.statusCode); 
+                        //       return;
+                        //   }
                         //   return;
                        // })
   
@@ -137,40 +145,48 @@ const verifyEmail = async (req, res, next) => {
                  
                     
                     db.collection("verification_token")
-                    .where("user_id", "==", user.uid)
+                    .where("user_id", "==", user_id)
                     .where("token", "==",  req.query.token)
                     .get()
-                    .then(token => {
-                      if (!token) {
-                        err= {
-                            message : 'Invalid Token'
-                          }
-                          handleResError(res, err, res.statusCode); 
-                      }
-                      return;
-                    })
+                    // .then(token => {
+                        companyQuerySnapshot.forEach( (doc) => {
+                            let token = doc.data().token
+                            if (!token) {
+                                err= {
+                                    message : 'Invalid Token'
+                                  }
+                                  handleResError(res, err, res.statusCode); 
+                              }
+                              return;
+                               
+                            }
+                        );
+                    
+                    //})
   
                     //UPDATE isEmailVerified TO TRUE
                  
                  db.collection("verification_token")
                     .where("token", "==",  req.query.token)
                     .get()
-                      .then( async (foundToken) => {
-                        if(foundToken){
+                    companyQuerySnapshot.forEach( (doc) => {
+                        
+                        if(doc){
 
-                           let id = foundToken.user_id
+                           let id = doc.id
                            console.log("id", id) 
+                           let token = doc.data().token
 
                           let dataUpdate = {isEmailVerified: true}
                         //   await User.update(data1 ,{
                         //            where: {email: email}
                         // });
 
-                          await db.collection('users').doc(cid)
+                          await db.collection('users').doc(id)
                                       .update({dataUpdate})
         
-                        let user_token = {token : foundToken.token}
-                        handleResSuccess(res,`User with ${user.email} is successfully verified` , user_token, res.statusCode);
+                        let user_token = {token : token}
+                        handleResSuccess(res,`User with ${email} is successfully verified` , user_token, res.statusCode);
   
                          // DELETE TOKEN AFTER VERIFICATION AND UPDATE isVerified to false///
                         //  await VerificationToken.destroy({
@@ -200,14 +216,14 @@ const verifyEmail = async (req, res, next) => {
 
              
             })
-            .catch((error) => {
+        //     .catch((error) => {
     
-              err = {
-                message : `User does not exist2. ${error.message}.`
-              };
-              handleResError(res, err, res.statusCode);
+        //       err = {
+        //         message : `User does not exist2. ${error.message}.`
+        //       };
+        //       handleResError(res, err, res.statusCode);
                 
-        });
+        // });
     
     } catch (error) {
       err = {
