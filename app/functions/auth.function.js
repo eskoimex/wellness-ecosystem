@@ -6,7 +6,7 @@ const { handleResSuccess } = require("../utils/success.util");
 const { handleResError } = require("../utils/err.util");
 var randomString = require('random-string');
 
-const { emailVerificationLink } = require("./../utils/emailTemplate/userEmailNotification.util");
+const { emailVerificationLink } = require("../utils/emailTemplate/userEmailNotification.util");
 
 const registerUser = async (req, res, next) => {
  let err; 
