@@ -35,7 +35,7 @@ const config = require('./app/config/config');
 const authRoutes = require('./app/routes/auth.routes');
 const onboardingRoutes = require('./app/routes/onboarding.routes');
 const appointmentRoutes = require('./app/routes/appointment.routes');
-const userRoutes = require('./app/routes/user.routes');
+const userRoutes = require('./app/routes/users.routes');
 
 
 // BACK ENDPOINTS
