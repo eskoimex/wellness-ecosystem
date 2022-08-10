@@ -14,7 +14,7 @@ const bookUserAppointment = async (req, res, next) => {
         const physician = req.body.physician;
         const date = req.body.date;
         const time = req.body.time;
-        const user_id= req.body.id;
+        const user_id= req.body.user_id;
 
         let appointment_data = {email, name, physician, date, time, user_id}
 

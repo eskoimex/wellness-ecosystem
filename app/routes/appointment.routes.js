@@ -1,5 +1,6 @@
 const express = require('express');
 const { userAppointment, confirmUserAppointment, viewUsersAppointments, viewUserAppointment } = require('../controllers/backend/appointment.backend.controller');
+const { checkIfAuthenticated } = require('../middleware/auth.middleware');
 
 const router = express.Router();
 
@@ -12,10 +13,10 @@ const router = express.Router();
     next();
   });
 
-router.post('/user_appointment', userAppointment);
-router.get('/confirm_appointment', confirmUserAppointment);
-router.get('/appointments', viewUsersAppointments);
-router.get('/appointment/:id', viewUserAppointment);
+router.post('/user_appointment', checkIfAuthenticated, userAppointment);
+router.get('/confirm_appointment', checkIfAuthenticated, confirmUserAppointment);
+router.get('/appointments', checkIfAuthenticated, viewUsersAppointments);
+router.get('/appointment/:id', checkIfAuthenticated, viewUserAppointment);
 
 
 module.exports = {
