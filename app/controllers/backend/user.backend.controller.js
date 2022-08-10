@@ -9,7 +9,7 @@ const viewAllUsers = async (req, res, next) => {
     await usersViewAll(req, res);
   } catch (e) {
     console.log(e)
-  //  handleResError(res, e, res.statusCode);
+    handleResError(res, e, res.statusCode);
   }
 };
 

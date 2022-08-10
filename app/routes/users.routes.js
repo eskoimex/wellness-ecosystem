@@ -18,7 +18,7 @@ const router = express.Router();
 
 
 ///BACKEND////////
-router.get('/all_users', viewAllUsers);
+router.get('/all_users', checkIfUserAuthenticated, viewAllUsers);
      // .get('/users', checkIfUserAuthenticated, users);
 router.get('/user', checkIfUserAuthenticated, viewUserById);
 router.put('/update_user', checkIfUserAuthenticated, updateUser);
