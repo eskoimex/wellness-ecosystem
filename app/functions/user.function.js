@@ -14,33 +14,59 @@ const moment = require('moment');
 const usersViewAll = async (req, res, next) => {
   let err;
 
+// try {
+//   const users = await db.collection('users');
+//   const data = await users.get();
+//   const usersArray = [];
+//   if(data.empty) {
+//        err = {
+//               message: "Users record not found",
+//         };
+//         handleResError(res, err, res.statusCode);     
+
+//   }else {
+//       data.forEach(doc => {
+//           const user = new Users(
+//               doc.id,
+//               doc.data().createdat,
+//               doc.data().email,
+//               doc.data().fullname,
+//               doc.data().last_loggedin,
+//           );
+//           usersArray.push(user);
+//       });
+//     handleResSuccess(res, "Users Fetched Successfully", usersArray, res.statusCode);  
+
+//   }
+// } catch (e) {
+//     handleResError(res, e, res.statusCode);      
+//   }
 try {
-  const users = await db.collection('users');
-  const data = await users.get();
-  const usersArray = [];
-  if(data.empty) {
-       err = {
-              message: "Users record not found",
-        };
-        handleResError(res, err, res.statusCode);     
+  if (req.cookies.uid) {
+      let uid = req.cookies.uid;
+      const message = "";
+      // req.flash('success', message)
+      //console.log(message)
+      const companyQuerySnapshot = await db.collection('users')
+          .where('company_id', '==', uid)
+          .get();
+      const user = [];
+      companyQuerySnapshot.forEach(
+          (doc) => {
+            let id  = doc.id
+              user.push({
+                  id, ...doc.data()
+              });
+          }
+      );
+      handleResSuccess(res, "success", user, res.statusCode);  
 
-  }else {
-      data.forEach(doc => {
-          const user = new Users(
-              doc.id,
-              doc.data().createdat,
-              doc.data().email,
-              doc.data().fullname,
-              doc.data().last_loggedin,
-          );
-          usersArray.push(user);
-      });
-    handleResSuccess(res, "Users Fetched Successfully", usersArray, res.statusCode);  
-
+  } else {
+      res.redirect('/login')
   }
-} catch (e) {
-    handleResError(res, e, res.statusCode);      
-  }
+} catch (error) {
+  res.status(500).send(error);
+}
 }
 
 

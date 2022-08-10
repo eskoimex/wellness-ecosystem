@@ -149,6 +149,7 @@ const verifyEmail = async (req, res, next) => {
                                       .update(dataUpdate)
         
                         let user_token = {token : token}
+
                         handleResSuccess(res,`User with ${email} is successfully verified` , user_token, res.statusCode);
   
                          // DELETE TOKEN AFTER VERIFICATION AND UPDATE isVerified to false///
@@ -248,7 +249,7 @@ const loginUser = async (req, res, next) => {
                                                             console.log(user_role)   
 
                                                             handleResSuccess(res, 'success', idToken, res.statusCode)
-
+                                                         
                                                         }
                                                 }).catch(function (error) {
                                                     //Handle error
