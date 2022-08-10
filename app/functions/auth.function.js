@@ -46,7 +46,8 @@ const registerUser = async (req, res, next) => {
                                         user_id: uuid,
                                         isEmailVerified: false,
                                         isAppointmentApproved: false,
-                                        isPaymentConfirmed: false
+                                        isPaymentConfirmed: false,
+                                        firstLogin: false
                                 }).then( async () => {
 
                                     const data = {

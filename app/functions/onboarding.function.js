@@ -27,6 +27,11 @@ const onBoardUser = async (req, res, next) => {
         
         db.collection("health_questions").doc().set(healthQuestions)
         .then(()=>{
+          
+          let dataUpdate = {firstLogin: true}
+
+          await db.collection('users').doc(user_id)
+              .update(dataUpdate)
            handleResSuccess(res, "success", healthQuestions, res.statusCode); 
             }).catch((error)=>{
               err = {

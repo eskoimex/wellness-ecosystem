@@ -13,7 +13,8 @@ const router = express.Router();
   });
 
 router.post('/user_appointment', userAppointment);
-router.get('/confirm_appointment', userAppointment);
+// router.get('/confirm_appointment', confirmAppointment);
+// router.get('/view_all_appointments', viewAllAppointments);
 
 
 
