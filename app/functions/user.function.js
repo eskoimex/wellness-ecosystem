@@ -75,7 +75,8 @@ const userViewById = async (req, res, next) => {
   let err;
 
   try {
-      let uid = req.cookies.uid;
+     //let uid = req.cookies.uid;
+      let uid = req.params.id
       const userSnapshot = await db.collection('users')
         .where("user_id", "==", uid)
         .get();
