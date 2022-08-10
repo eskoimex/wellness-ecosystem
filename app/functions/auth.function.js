@@ -150,7 +150,10 @@ const verifyEmail = async (req, res, next) => {
         
                         let user_token = {token : token}
 
-                        handleResSuccess(res,`User with ${email} is successfully verified` , user_token, res.statusCode);
+                        res.redirect('http://wellness-eco.herokuapp.com')
+
+
+                        //handleResSuccess(res,`User with ${email} is successfully verified` , user_token, res.statusCode);
   
                          // DELETE TOKEN AFTER VERIFICATION AND UPDATE isVerified to false///
                         await db.collection('verification_token').doc(id).delete();
