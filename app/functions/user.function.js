@@ -65,7 +65,8 @@ try {
   //     res.redirect('/login')
   // }
 } catch (e) {
-  handleResError(res, e, res.statusCode);
+  console.log(e)
+ // handleResError(res, e, res.statusCode);
 }
 }
 
