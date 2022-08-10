@@ -64,8 +64,8 @@ try {
   // } else {
   //     res.redirect('/login')
   // }
-} catch (error) {
-  res.status(500).send(error);
+} catch (e) {
+  handleResError(res, e, res.statusCode);
 }
 }
 
