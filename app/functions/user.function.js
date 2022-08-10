@@ -81,14 +81,16 @@ const userViewById = async (req, res, next) => {
         .get();
       let userArray = [];
       userSnapshot.forEach((doc) => {
+        let id = doc.id
         userArray.push({
-          id: doc.id,
-          data: doc.data()
+          id, ...doc.data()
         });
       });
 
       handleResSuccess(res, "User Details Extracted", userArray, res.statusCode);
-    }
+    }   else {
+      res.redirect('/login')
+  }
   } catch (e) {
     handleResError(res, e, res.statusCode);
   }

@@ -18,9 +18,9 @@ const router = express.Router();
 
 
 ///BACKEND////////
-router.get('/all_users', checkIfUserAuthenticated, viewAllUsers)
-      .get('/users', checkIfUserAuthenticated, users);
-router.get('/user_details', checkIfUserAuthenticated, viewUserById);
+router.get('/all_users', checkIfUserAuthenticated, viewAllUsers);
+     // .get('/users', checkIfUserAuthenticated, users);
+router.get('/user', checkIfUserAuthenticated, viewUserById);
 router.put('/update_user', checkIfUserAuthenticated, updateUser);
 router.post('/change_password', checkIfUserAuthenticated, changePassword);
 router.get('/activity_log', checkIfUserAuthenticated, activityLog);
