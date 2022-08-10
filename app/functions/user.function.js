@@ -48,7 +48,7 @@ try {
       // req.flash('success', message)
       //console.log(message)
       const companyQuerySnapshot = await db.collection('users')
-          .where('user_id', '==', uid)
+         // .where('user_id', '==', uid)
           .get();
       const user = [];
       companyQuerySnapshot.forEach(
@@ -88,7 +88,7 @@ const userViewById = async (req, res, next) => {
         });
       });
 
-      handleResSuccess(res, "User Details Extracted", userArray, res.statusCode);
+      handleResSuccess(res, "success", userArray, res.statusCode);
   
   } catch (e) {
     handleResError(res, e, res.statusCode);
