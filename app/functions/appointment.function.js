@@ -44,6 +44,8 @@ const confirmAppointment = async (req, res, next) => {
   try {
     let email = req.query.email
     let name = req.query.name;
+    let user_id = req.query.user_id;
+
           let dataUpdate = {isAppointmentApproved: true}
           await db.collection('users').doc(user_id)
               .update(dataUpdate).then(()=>{
