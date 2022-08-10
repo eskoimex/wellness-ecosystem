@@ -1,5 +1,5 @@
 const express = require('express');
-const { checkIfUserAuthenticated } = require('../middleware/auth.middleware');
+const { checkIfAuthenticated } = require('../middleware/auth.middleware');
 const { viewAllUsers, viewUserById, updateUser, changePassword, activityLog, userPhotoUpdate, assignUserRole, userRole, deleteUser} = require('../controllers/backend/user.backend.controller');
 
 const Multer = require('multer');
@@ -18,16 +18,16 @@ const router = express.Router();
 
 
 ///BACKEND////////
-router.get('/all_users', checkIfUserAuthenticated, viewAllUsers);
-     // .get('/users', checkIfUserAuthenticated, users);
-router.get('/user/:id', checkIfUserAuthenticated, viewUserById);
-router.put('/update_user', checkIfUserAuthenticated, updateUser);
-router.post('/change_password', checkIfUserAuthenticated, changePassword);
-router.get('/activity_log', checkIfUserAuthenticated, activityLog);
+router.get('/users', checkIfAuthenticated, viewAllUsers);
+     // .get('/users', checkIfAuthenticated, users);
+router.get('/user/:id', checkIfAuthenticated, viewUserById);
+router.put('/update_user', checkIfAuthenticated, updateUser);
+router.post('/change_password', checkIfAuthenticated, changePassword);
+router.get('/activity_log', checkIfAuthenticated, activityLog);
 router.put('/change_user_photo', multer.single('file'), userPhotoUpdate);
-router.get('/assign_role', checkIfUserAuthenticated, assignUserRole);
-router.get('/user_role', checkIfUserAuthenticated, userRole);
-router.post('/delete_user', checkIfUserAuthenticated, deleteUser);
+router.get('/assign_role', checkIfAuthenticated, assignUserRole);
+router.get('/user_role', checkIfAuthenticated, userRole);
+router.post('/delete_user', checkIfAuthenticated, deleteUser);
 
 
 
