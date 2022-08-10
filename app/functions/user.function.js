@@ -74,7 +74,6 @@ const userViewById = async (req, res, next) => {
   let err;
 
   try {
-    //if (req.cookies.uid) {
       let uid = req.cookies.uid;
       const userSnapshot = await db.collection('users')
         .where("user_id", "==", uid)
@@ -88,9 +87,7 @@ const userViewById = async (req, res, next) => {
       });
 
       handleResSuccess(res, "User Details Extracted", userArray, res.statusCode);
-  //   }   else {
-  //     res.redirect('/login')
-  // }
+  
   } catch (e) {
     handleResError(res, e, res.statusCode);
   }
