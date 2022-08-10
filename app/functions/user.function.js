@@ -48,7 +48,7 @@ try {
       // req.flash('success', message)
       //console.log(message)
       const companyQuerySnapshot = await db.collection('users')
-          .where('company_id', '==', uid)
+          .where('user_id', '==', uid)
           .get();
       const user = [];
       companyQuerySnapshot.forEach(
