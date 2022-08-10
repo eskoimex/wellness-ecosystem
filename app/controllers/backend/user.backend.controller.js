@@ -8,7 +8,8 @@ const viewAllUsers = async (req, res, next) => {
   try {
     await usersViewAll(req, res);
   } catch (e) {
-    handleResError(res, e, res.statusCode);
+    console.log(e)
+  //  handleResError(res, e, res.statusCode);
   }
 };
 
