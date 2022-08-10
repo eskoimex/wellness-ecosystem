@@ -7,6 +7,7 @@ const { handleResError } = require("../utils/err.util");
 var randomString = require('random-string');
 
 const { emailVerificationLink } = require("../utils/emailTemplate/userEmailNotification.util");
+const { reset } = require('nodemon');
 
 const registerUser = async (req, res, next) => {
  let err; 
@@ -251,8 +252,12 @@ const loginUser = async (req, res, next) => {
                                                          let user_role = decodedToken.role
                                                             console.log(user_role)   
 
-                                                            handleResSuccess(res, 'success', idToken, res.statusCode)
-                                                         
+                                                           // handleResSuccess(res, 'success', idToken, res.statusCode)
+                                                            res.status(200).json({
+                                                                message: 'success',
+                                                                token : idToken,
+                                                                id: uid
+                                                            })                                                         
                                                         }
                                                 }).catch(function (error) {
                                                     //Handle error
