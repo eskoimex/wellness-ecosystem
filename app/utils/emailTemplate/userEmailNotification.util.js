@@ -40,8 +40,39 @@ function emailVerificationLink(token, email, fullname, user, res, req) {
                 
 }
 
+function sendPatientTestDetails(email, name, res, req) {
 
+    sgMail.setApiKey('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')
+
+            const msg = {
+                    from: {
+                            "email": "frank.oneil@tezzasolutions.com",
+                            "name": "Wellness Ecosytem"
+                        },
+                    to:  {
+                            "email": email,
+                            "name":  name
+                        },
+                    subject: `Test Details- Wellness Ecosystem`,
+                    text: 'Test Details',
+                    html: `Here are you test details`
+                
+
+                };
+
+                   sgMail
+                    .send(msg)
+                    .then(() => {
+                    handleResSuccess(res, "Test Details Sent!", '', res.statusCode);  
+
+                    })
+                    .catch((error) => {
+                        handleResError(res, error, res.statusCode);
+
+                    })
+        
+}
 
  
 
- module.exports = {emailVerificationLink}
+ module.exports = {emailVerificationLink, sendPatientTestDetails}

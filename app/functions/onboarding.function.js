@@ -1,7 +1,5 @@
 'use strict';
 const { db } = require('../utils/db')
-//const FieldValue = require('firebase-admin').firestore.FieldValue;
-//const Ads = require('../models/ads.model');
 const { handleResSuccess } = require("../utils/success.util");
 const { handleResError } = require("../utils/err.util");
 const moment = require('moment');

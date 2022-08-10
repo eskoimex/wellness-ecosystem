@@ -1,5 +1,5 @@
 const express = require('express');
-const { userAppointment } = require('../controllers/backend/appointment.backend.controller');
+const { userAppointment, confirmUserAppointment, viewUsersAppointments, viewUserAppointment } = require('../controllers/backend/appointment.backend.controller');
 
 const router = express.Router();
 
@@ -13,9 +13,9 @@ const router = express.Router();
   });
 
 router.post('/user_appointment', userAppointment);
-// router.get('/confirm_appointment', confirmAppointment);
-// router.get('/view_all_appointments', viewAllAppointments);
-
+router.get('/confirm_appointment', confirmUserAppointment);
+router.get('/appointments', viewUsersAppointments);
+router.get('/appointment/:id', viewUserAppointment);
 
 
 module.exports = {

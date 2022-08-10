@@ -1,44 +1,37 @@
 'use strict';
 const { db } = require('../utils/db')
-//const FieldValue = require('firebase-admin').firestore.FieldValue;
-//const Ads = require('../models/ads.model');
 const { handleResSuccess } = require("../utils/success.util");
 const { handleResError } = require("../utils/err.util");
 const moment = require('moment');
+const { sendPatientTestDetails } = require("../utils/emailTemplate/userEmailNotification.util");
 
 
 const bookUserAppointment = async (req, res, next) => {
   try {
-    if (req.cookies.uid) {
-      let uid = req.cookies.uid;
+   
+        const email = req.body.email;
+        const name = req.body.name;
+        const physician = req.body.physician;
+        const date = req.body.date;
+        const time = req.body.time;
+        const user_id= req.body.id;
 
-      console.log(req.body)
-        // get form data from from front end.
-      //   const blood_group = req.body.blood_group;
-      //   const genotype = req.body.genotype;
-      //   const sugar_level = req.body.sugar_level;
-      //   const height = req.body.height;
-      //   const weight = req.body.weight;
-
-      //   const createdAt = moment().utcOffset('+01:00').format('YYYY-MM-DD hh:mm A')
-      //   const user_id= uid;
-
-      //   let healthQuestions = {blood_group, genotype, sugar_level, height, weight, createdAt, user_id}
+        let appointment_data = {email, name, physician, date, time, user_id}
 
         
-      //   db.collection("health_questions").doc().set(healthQuestions)
-      //   .then(()=>{
-      //      handleResSuccess(res, "success", healthQuestions, res.statusCode); 
-      //       }).catch((error)=>{
-      //         err = {
-      //           message: error,
-      //     };
-      //     handleResError(res, err, res.statusCode);     
-      // })
+        db.collection("appointment").doc().set(appointment_data)
+        .then(async()=>{
           
-        
+          handleResSuccess(res, "success", appointment_data, res.statusCode); 
 
-      }
+
+            }).catch((error)=>{
+              err = {
+                message: error,
+          };
+          handleResError(res, err, res.statusCode);     
+      })
+ 
   } catch (e) {
       console.log("error", e)
         handleResError(res, e, res.statusCode);     
@@ -47,6 +40,82 @@ const bookUserAppointment = async (req, res, next) => {
 };
 
 
+const confirmAppointment = async (req, res, next) => {
+  try {
+    let email = req.query.email
+    let name = req.query.name;
+          let dataUpdate = {isAppointmentApproved: true}
+          await db.collection('users').doc(user_id)
+              .update(dataUpdate).then(()=>{
+                 sendPatientTestDetails(email, name, res, req) 
+
+              })
+              .catch((error)=>{
+              err = {
+                message: error,
+          };
+          handleResError(res, err, res.statusCode);     
+      })
+    
+  } catch (e) {
+      console.log("error", e)
+        handleResError(res, e, res.statusCode);     
+        return;
+  }
+};
+
+
+const viewAppointments = async (req, res, next) => {
+  let err;
+
+try {
+    
+      const companyQuerySnapshot = await db.collection('appointment')
+          .get();
+      const user = [];
+      companyQuerySnapshot.forEach(
+          (doc) => {
+            let id  = doc.id
+              user.push({
+                  id, ...doc.data()
+              });
+          }
+      );
+      handleResSuccess(res, "success", user, res.statusCode);  
+
+} catch (e) {
+ handleResError(res, e, res.statusCode);
+}
+}
+
+
+const viewAppointmentById = async (req, res, next) => {
+  let err;
+
+  try {
+      let uid = req.params.id
+      const appointmentSnapshot = await db.collection('appointment')
+        .where("user_id", "==", uid)
+        .get();
+      let appointmentArray = [];
+      appointmentSnapshot.forEach((doc) => {
+        let id = doc.id
+        appointmentArray.push({
+          id, ...doc.data()
+        });
+      });
+
+      handleResSuccess(res, "success", appointmentArray, res.statusCode);
+  
+  } catch (e) {
+    handleResError(res, e, res.statusCode);
+  }
+}
+
+
 module.exports = { 
-  bookUserAppointment
+  bookUserAppointment,
+  confirmAppointment,
+  viewAppointments,
+  viewAppointmentById
 }

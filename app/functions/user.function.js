@@ -1,6 +1,5 @@
 'use strict';
 const { db, auth, firebase, firebase_auth, bucket, admin } = require('../utils/db')
-const Users = require('../models/users.model');
 const bcrypt = require('bcryptjs');
 const { handleResSuccess } = require("../utils/success.util");
 const { handleResSuccessAndLog } = require("../utils/successLog.util");
