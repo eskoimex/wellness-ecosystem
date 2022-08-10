@@ -26,7 +26,7 @@ const onBoardUser = async (req, res, next) => {
 
         
         db.collection("health_questions").doc().set(healthQuestions)
-        .then(()=>{
+        .then(async()=>{
           
           let dataUpdate = {firstLogin: true}
 
