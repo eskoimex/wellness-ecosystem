@@ -208,16 +208,16 @@ const loginUser = async (req, res, next) => {
                         })
                             console.log(hashed_password)
                             console.log(password)
-                                if(hashed_password == "undefined"){
+                                if(hashed_password === "undefined"){
                                     
                                     err = {
                                         message: "User with this credentials does not exist.",
                                     };
                                     handleResError(res, err, res.statusCode)
-
+                                     return;
                                 }
                                 else {
-                                            let check = await bcrypt.compareSync(password, hashed_password)
+                         let check = await bcrypt.compareSync(password, hashed_password)
                         if (check) {   
                 // firebase_auth.signInWithEmailAndPassword(email,hashed_password)
 
