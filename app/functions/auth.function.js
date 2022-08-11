@@ -199,7 +199,7 @@ const loginUser = async (req, res, next) => {
             }
                 db.collection("users").where("email", "==", email)
                 .get()
-                    .then(function (querySnapshot) 
+                    .then(function async(querySnapshot) 
                  {
                     let hashed_password;
 
@@ -217,7 +217,7 @@ const loginUser = async (req, res, next) => {
 
                                 }
                                 else {
-                                            let check = bcrypt.compareSync(password, hashed_password)
+                                            let check = await bcrypt.compareSync(password, hashed_password)
             if (check) {   
                 // firebase_auth.signInWithEmailAndPassword(email,hashed_password)
 
