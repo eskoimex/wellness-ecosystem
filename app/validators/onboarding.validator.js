@@ -6,6 +6,7 @@ const OnboardingSchema = Joi.object({
   sugar_level: Joi.string().required(),
   height: Joi.string().required(),
   weight: Joi.string().required(),
+  user_id: Joi.string().required(),
 });
 
 

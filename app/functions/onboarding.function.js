@@ -9,16 +9,17 @@ const onBoardUser = async (req, res, next) => {
   try {
     // if (req.cookies.uid) {
 
-      let uid = req.cookies.uid;
+      //let uid = req.cookies.uid;
         // get form data from from front end.
         const blood_group = req.body.blood_group;
         const genotype = req.body.genotype;
         const sugar_level = req.body.sugar_level;
         const height = req.body.height;
         const weight = req.body.weight;
+        const user_id = req.body.user_id;
 
         const createdAt = moment().utcOffset('+01:00').format('YYYY-MM-DD hh:mm A')
-        const user_id= uid;
+        //const user_id= uid;
 
         let healthQuestions = {blood_group, genotype, sugar_level, height, weight, createdAt, user_id}
 
