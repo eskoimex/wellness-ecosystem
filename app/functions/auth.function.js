@@ -48,7 +48,7 @@ const registerUser = async (req, res, next) => {
                                         isEmailVerified: false,
                                         isAppointmentApproved: false,
                                         isPaymentConfirmed: false,
-                                        firstLogin: false
+                                        firstLogin: true
                                 }).then( async () => {
 
                                     const data = {

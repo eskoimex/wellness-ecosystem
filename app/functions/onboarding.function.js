@@ -26,7 +26,7 @@ const onBoardUser = async (req, res, next) => {
         db.collection("health_questions").doc().set(healthQuestions)
         .then(async()=>{
           
-          let dataUpdate = {firstLogin: true}
+          let dataUpdate = {firstLogin: false}
 
           await db.collection('users').doc(user_id)
               .update(dataUpdate)
