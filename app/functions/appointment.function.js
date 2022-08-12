@@ -3,7 +3,7 @@ const { db } = require('../utils/db')
 const { handleResSuccess } = require("../utils/success.util");
 const { handleResError } = require("../utils/err.util");
 const moment = require('moment');
-const { sendPatientTestDetails } = require("../utils/emailTemplate/userEmailNotification.util");
+const { appointmentReceipt, sendPatientTestDetails } = require("../utils/emailTemplate/userEmailNotification.util");
 
 
 const bookUserAppointment = async (req, res, next) => {
@@ -22,7 +22,9 @@ const bookUserAppointment = async (req, res, next) => {
         db.collection("appointment").doc().set(appointment_data)
         .then(async()=>{
           
-          handleResSuccess(res, "success", appointment_data, res.statusCode); 
+          appointmentReceipt(email, name, appointment_data, res, req) 
+
+          //handleResSuccess(res, "success", appointment_data, res.statusCode); 
 
 
             }).catch((error)=>{

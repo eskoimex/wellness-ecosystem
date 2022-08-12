@@ -73,6 +73,37 @@ function sendPatientTestDetails(email, name, res, req) {
         
 }
 
- 
+function appointmentReceipt(email, name, appointment_data, res, req) {
 
- module.exports = {emailVerificationLink, sendPatientTestDetails}
+    sgMail.setApiKey('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')
+
+            const msg = {
+                    from: {
+                            "email": "frank.oneil@tezzasolutions.com",
+                            "name": "Wellness Ecosytem"
+                        },
+                    to:  {
+                            "email": email,
+                            "name":  name
+                        },
+                    subject: `Appointment Receipt- Wellness Ecosystem`,
+                    text: 'Thank you for booking an appointment.',
+                    html: `Hello! Your appointment is received. You will receive your Test details shortly.`
+                
+
+                };
+
+                   sgMail
+                    .send(msg)
+                    .then(() => {
+                    handleResSuccess(res, "success", appointment_data, res.statusCode); 
+
+                    })
+                    .catch((error) => {
+                        handleResError(res, error, res.statusCode);
+
+                    })
+        
+} 
+
+ module.exports = {emailVerificationLink, appointmentReceipt, sendPatientTestDetails}
