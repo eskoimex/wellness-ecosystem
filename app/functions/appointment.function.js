@@ -51,7 +51,7 @@ const confirmAppointment = async (req, res, next) => {
 
           let dataUpdate = {isAppointmentApproved: true}
           await db.collection('appointment').doc(user_id).update(dataUpdate)
-          .then(()=>{
+          .then( async()=>{
 
                   await db.collection('users').doc(user_id)
                       .update(dataUpdate).then(()=>{
