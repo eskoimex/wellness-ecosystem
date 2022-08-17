@@ -1,6 +1,6 @@
 'use strict';
 const { handleResError } = require("../../utils/err.util");
-const { bookUserAppointment, confirmAppointment, viewAppointments, viewAppointmentById } = require("../../functions/appointment.function");
+const { bookUserAppointment, confirmAppointment, viewAppointments, retrieveAllPendingAppointment, viewAppointmentById } = require("../../functions/appointment.function");
 // const {
 //       validateOnboardingData,
 //     } = require('../../validators/onboarding.validator');
@@ -37,6 +37,16 @@ const viewUsersAppointments = async (req, res, next) => {
 };
 
 
+const fetchAllPendingAppointments = async (req, res, next) => {    
+  try { 
+      //  let { err, value } = await validateOnboardingData(req.body);
+      //  if (err) handleResError(res, err, res.statusCode);
+        await retrieveAllPendingAppointment(req,res);
+  } catch (e) {
+        handleResError(res, e, res.statusCode);
+  }
+};
+
 const viewUserAppointment = async (req, res, next) => {    
   try { 
       //  let { err, value } = await validateOnboardingData(req.body);
@@ -50,5 +60,6 @@ module.exports = {
     userAppointment,
     confirmUserAppointment,
     viewUsersAppointments,
+    fetchAllPendingAppointments,
     viewUserAppointment
 }

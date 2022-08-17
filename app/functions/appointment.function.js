@@ -92,6 +92,28 @@ try {
 }
 }
 
+const retrieveAllPendingAppointment = async (req, res, next) => {
+  let err;
+
+  try {
+      let uid = req.params.id
+      const appointmentSnapshot = await db.collection('appointment')
+        .where("isAppointmentApproved", "==", false)
+        .get();
+      let appointmentArray = [];
+      appointmentSnapshot.forEach((doc) => {
+        let id = doc.id
+        appointmentArray.push({
+          id, ...doc.data()
+        });
+      });
+
+      handleResSuccess(res, "success", appointmentArray, res.statusCode);
+  
+  } catch (e) {
+    handleResError(res, e, res.statusCode);
+  }
+}
 
 const viewAppointmentById = async (req, res, next) => {
   let err;
@@ -121,5 +143,6 @@ module.exports = {
   bookUserAppointment,
   confirmAppointment,
   viewAppointments,
+  retrieveAllPendingAppointment,
   viewAppointmentById
 }

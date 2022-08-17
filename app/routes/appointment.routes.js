@@ -1,5 +1,5 @@
 const express = require('express');
-const { userAppointment, confirmUserAppointment, viewUsersAppointments, viewUserAppointment } = require('../controllers/backend/appointment.backend.controller');
+const { userAppointment, confirmUserAppointment, viewUsersAppointments,fetchAllPendingAppointments, viewUserAppointment } = require('../controllers/backend/appointment.backend.controller');
 const { checkIfAuthenticated } = require('../middleware/auth.middleware');
 
 const router = express.Router();
@@ -16,6 +16,7 @@ const router = express.Router();
 router.post('/user_appointment', checkIfAuthenticated, userAppointment);
 router.get('/confirm_appointment', checkIfAuthenticated, confirmUserAppointment);
 router.get('/appointments', checkIfAuthenticated, viewUsersAppointments);
+router.get('/pending_appointments', checkIfAuthenticated, fetchAllPendingAppointments);
 router.get('/appointment/:id', checkIfAuthenticated, viewUserAppointment);
 
 
