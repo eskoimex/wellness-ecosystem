@@ -15,11 +15,12 @@ const bookUserAppointment = async (req, res, next) => {
         const date = req.body.date;
         const time = req.body.time;
         const user_id= req.body.user_id;
+        const isAppointmentApproved = false
 
-        let appointment_data = {email, name, physician, date, time, user_id}
+        let appointment_data = {email, name, physician, date, time, user_id, isAppointmentApproved}
 
         
-        db.collection("appointment").doc().set(appointment_data)
+        db.collection("appointment").doc(user_id).set(appointment_data)
         .then(async()=>{
           
           appointmentReceipt(email, name, appointment_data, res, req) 
@@ -49,17 +50,27 @@ const confirmAppointment = async (req, res, next) => {
     let user_id = req.query.user_id;
 
           let dataUpdate = {isAppointmentApproved: true}
-          await db.collection('users').doc(user_id)
-              .update(dataUpdate).then(()=>{
-                 sendPatientTestDetails(email, name, res, req) 
+          await db.collection('appointment').doc(user_id).update(dataUpdate)
+          .then(()=>{
 
-              })
-              .catch((error)=>{
-              err = {
-                message: error,
-          };
-          handleResError(res, err, res.statusCode);     
-      })
+                  await db.collection('users').doc(user_id)
+                      .update(dataUpdate).then(()=>{
+                        sendPatientTestDetails(email, name, res, req) 
+                      })
+                      .catch((error)=>{
+                          err = {
+                            message: error,
+                      };
+                      handleResError(res, err, res.statusCode);     
+                    })
+
+            })
+            .catch((error)=>{
+            err = {
+              message: error,
+        };
+handleResError(res, err, res.statusCode);     
+})
     
   } catch (e) {
       console.log("error", e)
