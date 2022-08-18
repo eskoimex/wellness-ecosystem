@@ -73,8 +73,8 @@ function sendPatientTestDetails(email, name, res, req) {
         
 }
 
-function appointmentReceipt(email, name, appointment_data, res, req) {
-
+function appointmentReceipt(email, name, appointment_data, appointment_id, res, req) {
+let err;
     sgMail.setApiKey('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')
 
             const msg = {
@@ -100,7 +100,10 @@ function appointmentReceipt(email, name, appointment_data, res, req) {
 
                     })
                     .catch((error) => {
-                        handleResError(res, error, res.statusCode);
+                        err= {
+                            message: error.message
+                        }
+                        handleResError(res, err, res.statusCode);
 
                     })
         
