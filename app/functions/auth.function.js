@@ -56,10 +56,9 @@ const registerUser = async (req, res, next) => {
                                         token: emailVerificationTtoken
                                       }
 
-                                      await db.collection('verification_token').add(data)
-                                  
-                                 
-                                          let user = userDetails.toJSON();
+                                      await db.collection('verification_token').add(data)                                  
+                                      let user = userDetails.toJSON();
+                                      
                                           emailVerificationLink(emailVerificationTtoken, user.email, fullname, user, res, req)
 
                                           //handleResSuccess(res, "success", user, res.statusCode);  
@@ -250,13 +249,14 @@ const loginUser = async (req, res, next) => {
                                                             res.locals.role = decodedToken.role;
 
                                                          let user_role = decodedToken.role
-                                                            console.log(user_role)   
+                                                            console.log("user_role ---> ", user_role)   
 
                                                            // handleResSuccess(res, 'success', idToken, res.statusCode)
                                                             res.status(200).json({
                                                                 message: 'success',
                                                                 token : idToken,
-                                                                id: uid
+                                                                id: uid,
+                                                                user_role: user_role
                                                             })                                                         
                                                         }
                                                 }).catch(function (error) {

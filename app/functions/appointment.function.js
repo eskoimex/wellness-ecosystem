@@ -20,10 +20,10 @@ const bookUserAppointment = async (req, res, next) => {
         let appointment_data = {email, name, physician, date, time, user_id, isAppointmentApproved}
 
         
-        db.collection("appointment").doc(user_id).set(appointment_data)
-        .then(async()=>{
-          
-          appointmentReceipt(email, name, appointment_data, res, req) 
+        db.collection("appointment").doc().set(appointment_data)
+        .then(async(doc)=>{
+          let appointment_id = doc.id
+          appointmentReceipt(email, name, appointment_data, appointment_id, res, req) 
 
           //handleResSuccess(res, "success", appointment_data, res.statusCode); 
 
@@ -48,9 +48,10 @@ const confirmAppointment = async (req, res, next) => {
     let email = req.query.email
     let name = req.query.name;
     let user_id = req.query.user_id;
-
+    let appointment_id = req.query.appointment_id;
+    
           let dataUpdate = {isAppointmentApproved: true}
-          await db.collection('appointment').doc(user_id).update(dataUpdate)
+          await db.collection('appointment').doc(appointment_id).update(dataUpdate)
           .then( async()=>{
 
                   await db.collection('users').doc(user_id)
