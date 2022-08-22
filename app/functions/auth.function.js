@@ -32,7 +32,7 @@ const registerUser = async (req, res, next) => {
                        }).then((userDetails) => {
 
                         // Add custom claims or roles
-                        auth.setCustomUserClaims(userDetails.uid, {role: "User"})
+                        auth.setCustomUserClaims(userDetails.uid, {role: "Admin"})
                         .then(() => {
                             let uuid = userDetails.uid;
                               db.collection('users').doc(uuid)
@@ -42,7 +42,7 @@ const registerUser = async (req, res, next) => {
                                         email: email,
                                         phone_number: phone_number,
                                         password: hash,
-                                        role: "User",
+                                        role: "Admin",
                                         createdAt: createdAt,
                                         user_id: uuid,
                                         isEmailVerified: false,
