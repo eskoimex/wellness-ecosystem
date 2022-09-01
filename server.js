@@ -52,9 +52,11 @@ app.get("/", (req, res) => {
 var alreadyDone = [];
 
 // Function picking random values from array
-const randomValueFromArray = (myArray) => {
+//const randomValueFromArray = (myArray) => {
   // If alreadyDone is empty then fill it will indexes equal
   // to the size of myArray
+
+  let myArray = ["a", "b", "c", "d", "e", "f"]
   if (alreadyDone.length === 0) {
     for (var i = 0; i < myArray.length; i++) alreadyDone.push(i);
   }
@@ -72,10 +74,12 @@ const randomValueFromArray = (myArray) => {
   alreadyDone.splice(randomValueIndex, 1);
 
   // Get the value
-  return myArray[indexOfItemInMyArray];
-};
+    console.log(myArray[indexOfItemInMyArray])
+    res.send(myArray[indexOfItemInMyArray])
 
-randomValueFromArray(["a", "b", "c", "d", "e", "f"])
+//};
+
+//randomValueFromArray(["a", "b", "c", "d", "e", "f"])
   });
 
 app.listen(config.port, () => console.log(`${config.name} is listening on the url ${config.host} at ` + config.port));
