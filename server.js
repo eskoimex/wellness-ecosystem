@@ -49,18 +49,21 @@ app.get("/", (req, res) => {
     //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
     const scores = [90, 100, 60, 80, 70, 50, 40, 30];
 
-    function* randomGenerator() {
-      const shuffledScores = scores.sort((score) => Math.random() - 0.5)
-      for (const val of shuffledScores) yield val;
-    }
-    
-    const iterator = randomGenerator();
-    
-    for (let i = 0; i < scores.length; i++) 
-    
-    console.log(iterator.next().value);
-    res.send(iterator.next().value);
+    function* randomElement( ) {
+           let elem,
+           len = arr.length;
 
+           while(len > 0){
+                let rand = Math.floor(Math.random() * len);
+                elem = arr.splice(rand, 1)[0];
+                yield elem;
+                len = arr.length;
+           }
+      }
+    
+      const randScores = randomElement(scores)
+      console.log(randScores.next.value)
+      res.send(randScores.next.value)
 
   });
 
