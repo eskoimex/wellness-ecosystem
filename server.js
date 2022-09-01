@@ -75,17 +75,17 @@ app.get("/", (req, res) => {
     var message = [
         { subject: 'Hey', body: 'Hey! Wasup' },
         { subject: 'Hello', body: 'Hello there' },
-        { subject: 'Hi', body: 'Hi! How are you?' }
+        { subject: 'Hi', body: 'Hi! How are you?'}
     ];
     
     user.forEach(o => console.log(o.email_address));
     
-    cron.schedule('*/1 * * * *', () => {
-        console.log('running every minute');
-        message.forEach(o => {
-            console.log(o)
-            res.send(o)
-        });
+    // cron.schedule('*/1 * * * *', () => {
+    //     console.log('running every minute');
+    //     message.forEach(o => {
+    //         console.log(o)
+    //         res.send(o)
+    //     });
 
   });
 
