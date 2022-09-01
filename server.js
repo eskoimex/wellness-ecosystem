@@ -100,35 +100,35 @@ app.get("/", (req, res) => {
     //   });
  
                
-    cron.schedule('*/1 * * * *', () => {
-        console.log('running every minute');
-        const body = messages[Math.floor(Math.random() * messages.length)]
+//     cron.schedule('*/1 * * * *', () => {
+//         console.log('running every minute');
+//         const body = messages[Math.floor(Math.random() * messages.length)]
 
-        const msg = {
-            from: {
-                "email": "frank.oneil@tezzasolutions.com",
-                "name": "Cope Notes"
-            },           
-             to: email,
-            subject: `Testing Email Schedule`,
-            text: 'Send multiple emails every one minute',
-            html: body
-            };
+//         const msg = {
+//             from: {
+//                 "email": "frank.oneil@tezzasolutions.com",
+//                 "name": "Cope Notes"
+//             },           
+//              to: email,
+//             subject: `Testing Email Schedule`,
+//             text: 'Send multiple emails every one minute',
+//             html: body
+//             };
 
-               sgMail.sendMultiple(msg)
-                .then(() => {
-                res.send('Scheduled email sent to users');  
-                console.log('Scheduled email sent to users');  
+//                sgMail.sendMultiple(msg)
+//                 .then(() => {
+//                 res.send('Scheduled email sent to users');  
+//                 console.log('Scheduled email sent to users');  
 
-                })
-                .catch((error) => {
-                    res.send(error);  
-                    console.log(error)
+//                 })
+//                 .catch((error) => {
+//                     res.send(error);  
+//                     console.log(error)
 
-                })
+//                 })
 
 
- });
+//  });
 
   });
 
