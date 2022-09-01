@@ -19,6 +19,7 @@ const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 //var multer = require('multer');
+var cron = require('node-cron');
 
 
 console.log(__dirname)
@@ -47,23 +48,43 @@ app.use('/api/v1/', userRoutes.routes);
 
 app.get("/", (req, res) => {
     //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
-    const scores = [90, 100, 60, 80, 70, 50, 40, 30];
+    // const scores = [90, 100, 60, 80, 70, 50, 40, 30];
 
-    function* randomElement(arr) {
-           let elem,
-           len = arr.length;
+    // function* randomElement(arr) {
+    //        let elem,
+    //        len = arr.length;
 
-           while(len > 0){
-                let rand = Math.floor(Math.random() * len);
-                elem = arr.splice(rand, 1)[0];
-                yield elem;
-                len = arr.length;
-           }
-      }
+    //        while(len > 0){
+    //             let rand = Math.floor(Math.random() * len);
+    //             elem = arr.splice(rand, 1)[0];
+    //             yield elem;
+    //             len = arr.length;
+    //        }
+    //   }
     
-      const randScores = randomElement(scores)
-      console.log(randScores.next().value)
-      res.send(randScores.next().value)
+    //   const randScores = randomElement(scores)
+    //   console.log(randScores.next().value)
+    //   res.send(randScores.next().value)
+
+    var user = [
+        { name: 'Max', email_address: 'max@gmail.com' },
+        { name: 'John', email_address: 'john@yahoo.com' },
+        { name: 'Caley', email_address: 'caley@hotmail.com' }
+    ];
+
+    var message = [
+        { subject: 'Hey', body: 'Hey! Wasup' },
+        { subject: 'Hello', body: 'Hello there' },
+        { subject: 'Hi', body: 'Hi! How are you?' }
+    ];
+    
+    user.forEach(o => console.log(o.email_address));
+    
+    cron.schedule('*/1 * * * *', () => {
+        console.log('running every minute to ');
+        message.forEach(o => console.log(o));
+
+  });
 
   });
 
