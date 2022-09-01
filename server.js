@@ -79,6 +79,10 @@ app.get("/", (req, res) => {
     ];
     
     user.forEach(o => console.log(o.email_address));
+    message.forEach(o => {
+                console.log(o)
+                res.send(o)
+            });
     
     // cron.schedule('*/1 * * * *', () => {
     //     console.log('running every minute');
