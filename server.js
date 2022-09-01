@@ -47,20 +47,20 @@ app.use('/api/v1/', userRoutes.routes);
 
 app.get("/", (req, res) => {
     //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
-    function randomNoRepeats(array) {
-      var copy = array.slice(0);
-      return function() {
-        if (copy.length < 1) { copy = array.slice(0); }
-        var index = Math.floor(Math.random() * copy.length);
-        var item = copy[index];
-        copy.splice(index, 1);
-        return item;
-      };
+    const scores = [90, 100, 60, 80, 70, 50, 40, 30];
+
+    function* randomGenerator() {
+      const shuffledScores = scores.sort((score) => Math.random() - 0.5)
+      for (const val of shuffledScores) yield val;
     }
     
-    var chooser = randomNoRepeats(['Foo', 'Bar', 'Gah']);
-    console.log(chooser())
-    res.send(chooser())
+    const iterator = randomGenerator();
+    
+    for (let i = 0; i < scores.length; i++) 
+    
+    console.log(iterator.next().value);
+    res.send(iterator.next().value);
+
 
   });
 
