@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
     //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
     const scores = [90, 100, 60, 80, 70, 50, 40, 30];
 
-    function* randomElement( ) {
+    function* randomElement(arr) {
            let elem,
            len = arr.length;
 
