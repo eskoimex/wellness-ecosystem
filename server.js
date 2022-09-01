@@ -47,10 +47,21 @@ app.use('/api/v1/', userRoutes.routes);
 
 app.get("/", (req, res) => {
     //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
-    const arr = ["Roger", "Russell", "Clyde", "Egbert", "Clare", "Bobbie", "Simon", "Elizabeth", "Ted", "Caroline"];
-    const choices = arr.sort(() => Math.random() - 0.5).slice(0, 5)
-    console.log(choices);
-    res.send(choices)
+    function randomNoRepeats(array) {
+      var copy = array.slice(0);
+      return function() {
+        if (copy.length < 1) { copy = array.slice(0); }
+        var index = Math.floor(Math.random() * copy.length);
+        var item = copy[index];
+        copy.splice(index, 1);
+        return item;
+      };
+    }
+    
+    var chooser = randomNoRepeats(['Foo', 'Bar', 'Gah']);
+    console.log(chooser())
+    res.send(chooser())
+
   });
 
 app.listen(config.port, () => console.log(`${config.name} is listening on the url ${config.host} at ` + config.port));
