@@ -46,7 +46,7 @@ app.use('/api/v1/', appointmentRoutes.routes);
 app.use('/api/v1/', userRoutes.routes);
 
 const sgMail = require('@sendgrid/mail');
-const { reset } = require('nodemon');
+const messages = require('./messages.json') // or where ever you put the file we just made above
 
 
 app.get("/", (req, res) => {
@@ -90,39 +90,45 @@ app.get("/", (req, res) => {
     sgMail.setApiKey('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')
     
     var message = ['Hey! Wasup', 'Hello there' ,'Hi! How are you?']
+    var email = ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com']
 
-    message.forEach(function (item) {
-        console.log(item);
-        //res.send(item)
-      });
+    // message.forEach(function (item) {
+    //     console.log(item);
+    //     /////////////////
           
-//     cron.schedule('*/1 * * * *', () => {
-//         console.log('running every minute');
-//         const msg = {
-//             from: {
-//                 "email": "frank.oneil@tezzasolutions.com",
-//                 "name": "Cope Notes"
-//             },           
-//              to: ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'],
-//             subject: `Testing Email Schedule`,
-//             text: 'Send multiple emails every one minute',
-//             html: `Hey! This is just a test`
-//             };
+    //     //////////////////
+    //   });
+ 
+               
+    cron.schedule('*/1 * * * *', () => {
+        console.log('running every minute');
+        const body = messages[Math.floor(Math.random() * messages.length)]
 
-//                sgMail.sendMultiple(msg)
-//                 .then(() => {
-//                 res.send('Scheduled email sent to users');  
-//                 console.log('Scheduled email sent to users');  
+        const msg = {
+            from: {
+                "email": "frank.oneil@tezzasolutions.com",
+                "name": "Cope Notes"
+            },           
+             to: email,
+            subject: `Testing Email Schedule`,
+            text: 'Send multiple emails every one minute',
+            html: body
+            };
 
-//                 })
-//                 .catch((error) => {
-//                     res.send(error);  
-//                     console.log(error)
+               sgMail.sendMultiple(msg)
+                .then(() => {
+                res.send('Scheduled email sent to users');  
+                console.log('Scheduled email sent to users');  
 
-//                 })
+                })
+                .catch((error) => {
+                    res.send(error);  
+                    console.log(error)
+
+                })
 
 
-//  });
+ });
 
   });
 
