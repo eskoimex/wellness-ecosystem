@@ -92,7 +92,7 @@ app.get("/", (req, res) => {
     cron.schedule('*/1 * * * *', () => {
         console.log('running every minute');
         const msg = {
-            from: 'noreply@imex.com',
+            from: 'frank.oneil@tezzasolutions.com',
             to: ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'],
             subject: `Testing Email Schedule`,
             text: 'Send multiple emails every one minute',
