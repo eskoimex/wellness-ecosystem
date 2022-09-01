@@ -89,33 +89,33 @@ app.get("/", (req, res) => {
     sgMail.setApiKey('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')
 
           
-    cron.schedule('*/1 * * * *', () => {
-        console.log('running every minute');
-        const msg = {
-            from: {
-                "email": "frank.oneil@tezzasolutions.com",
-                "name": "Wellness Ecosytem"
-            },           
-             to: ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'],
-            subject: `Testing Email Schedule`,
-            text: 'Send multiple emails every one minute',
-            html: `Hey! This is just a test`
-            };
+//     cron.schedule('*/1 * * * *', () => {
+//         console.log('running every minute');
+//         const msg = {
+//             from: {
+//                 "email": "frank.oneil@tezzasolutions.com",
+//                 "name": "Cope Notes"
+//             },           
+//              to: ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'],
+//             subject: `Testing Email Schedule`,
+//             text: 'Send multiple emails every one minute',
+//             html: `Hey! This is just a test`
+//             };
 
-               sgMail.sendMultiple(msg)
-                .then(() => {
-                res.send('Scheduled email sent to users');  
-                console.log('Scheduled email sent to users');  
+//                sgMail.sendMultiple(msg)
+//                 .then(() => {
+//                 res.send('Scheduled email sent to users');  
+//                 console.log('Scheduled email sent to users');  
 
-                })
-                .catch((error) => {
-                    res.send(error);  
-                    console.log(error)
+//                 })
+//                 .catch((error) => {
+//                     res.send(error);  
+//                     console.log(error)
 
-                })
+//                 })
 
 
- });
+//  });
 
   });
 
