@@ -45,7 +45,8 @@ app.use('/api/v1/', onboardingRoutes.routes);
 app.use('/api/v1/', appointmentRoutes.routes);
 app.use('/api/v1/', userRoutes.routes);
 
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
+const { reset } = require('nodemon');
 
 
 app.get("/", (req, res) => {
@@ -87,7 +88,13 @@ app.get("/", (req, res) => {
     //         });
 
     sgMail.setApiKey('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')
+    
+    var message = ['Hey! Wasup', 'Hello there' ,'Hi! How are you?']
 
+    message.forEach(function (item) {
+        console.log(item);
+        res.send(item)
+      });
           
 //     cron.schedule('*/1 * * * *', () => {
 //         console.log('running every minute');
