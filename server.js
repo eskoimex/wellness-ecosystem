@@ -47,39 +47,10 @@ app.use('/api/v1/', userRoutes.routes);
 
 app.get("/", (req, res) => {
     //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
-    // Array to store indexes which are left to access. 
-// It helps in accessing values without repeating
-var alreadyDone = [];
-
-// Function picking random values from array
-//const randomValueFromArray = (myArray) => {
-  // If alreadyDone is empty then fill it will indexes equal
-  // to the size of myArray
-
-  let myArray = ["a", "b", "c", "d", "e", "f"]
-  if (alreadyDone.length === 0) {
-    for (var i = 0; i < myArray.length; i++) alreadyDone.push(i);
-  }
-
-  // Generate random number within the range of 
-  // length of alreadyDone array
-  var randomValueIndex = Math.floor(Math.random() * alreadyDone.length);
-  
-  // Getting unaccessed index of myArray using above 
-  // random number
-  var indexOfItemInMyArray = alreadyDone[randomValueIndex];
-
-  // remove this index from alreadyDone array because
-  // we are accessing it now.
-  alreadyDone.splice(randomValueIndex, 1);
-
-  // Get the value
-    console.log(myArray[indexOfItemInMyArray])
-    res.send(myArray[indexOfItemInMyArray])
-
-//};
-
-//randomValueFromArray(["a", "b", "c", "d", "e", "f"])
+    const arr = ["Roger", "Russell", "Clyde", "Egbert", "Clare", "Bobbie", "Simon", "Elizabeth", "Ted", "Caroline"];
+    const choices = arr.sort(() => Math.random() - 0.5).slice(0, 5)
+    console.log(choices);
+    res.send(choices)
   });
 
 app.listen(config.port, () => console.log(`${config.name} is listening on the url ${config.host} at ` + config.port));
