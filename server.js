@@ -91,6 +91,8 @@ app.get("/", (req, res) => {
     
     var message = ['Hey! Wasup', 'Hello there' ,'Hi! How are you?']
     var email = ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com']
+       const body = messages[Math.floor(Math.random() * messages.length)]
+res.send(body)
 
     // message.forEach(function (item) {
     //     console.log(item);
