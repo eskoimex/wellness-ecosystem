@@ -62,8 +62,8 @@ app.get("/", (req, res) => {
       }
     
       const randScores = randomElement(scores)
-      console.log(randScores.next.value)
-      res.send(randScores.next.value)
+      console.log(randScores.next().value)
+      res.send(randScores.next().value)
 
   });
 
