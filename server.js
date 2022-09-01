@@ -92,8 +92,11 @@ app.get("/", (req, res) => {
     cron.schedule('*/1 * * * *', () => {
         console.log('running every minute');
         const msg = {
-            from: 'frank.oneil@tezzasolutions.com',
-            to: ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'],
+            from: {
+                "email": "frank.oneil@tezzasolutions.com",
+                "name": "Wellness Ecosytem"
+            },           
+             to: ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'],
             subject: `Testing Email Schedule`,
             text: 'Send multiple emails every one minute',
             html: `Hey! This is just a test`
@@ -101,11 +104,13 @@ app.get("/", (req, res) => {
 
                sgMail.sendMultiple(msg)
                 .then(() => {
-                res.send('Sheduled email sent to users');  
+                res.send('Scheduled email sent to users');  
+                console.log('Scheduled email sent to users');  
 
                 })
                 .catch((error) => {
                     res.send(error);  
+                    console.log(error)
 
                 })
 
