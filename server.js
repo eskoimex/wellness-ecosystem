@@ -45,6 +45,8 @@ app.use('/api/v1/', onboardingRoutes.routes);
 app.use('/api/v1/', appointmentRoutes.routes);
 app.use('/api/v1/', userRoutes.routes);
 
+const sgMail = require('@sendgrid/mail')
+
 
 app.get("/", (req, res) => {
     //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
@@ -66,32 +68,49 @@ app.get("/", (req, res) => {
     //   console.log(randScores.next().value)
     //   res.send(randScores.next().value)
 
-    var user = [
-        { name: 'Max', email_address: 'max@gmail.com' },
-        { name: 'John', email_address: 'john@yahoo.com' },
-        { name: 'Caley', email_address: 'caley@hotmail.com' }
-    ];
+    // var user = [
+    //     { name: 'Max', email_address: 'max@gmail.com' },
+    //     { name: 'John', email_address: 'john@yahoo.com' },
+    //     { name: 'Caley', email_address: 'caley@hotmail.com' }
+    // ];
 
-    var message = [
-        { subject: 'Hey', body: 'Hey! Wasup' },
-        { subject: 'Hello', body: 'Hello there' },
-        { subject: 'Hi', body: 'Hi! How are you?'}
-    ];
+    // var message = [
+    //     { subject: 'Hey', body: 'Hey! Wasup' },
+    //     { subject: 'Hello', body: 'Hello there' },
+    //     { subject: 'Hi', body: 'Hi! How are you?'}
+    // ];
     
-    user.forEach(o => console.log(o.email_address));
-    message.forEach(o => {
-                console.log(o)
-                //res.send(o)
-            });
-    
-    // cron.schedule('*/1 * * * *', () => {
-    //     console.log('running every minute');
-    //     message.forEach(o => {
-    //         console.log(o)
-    //         res.send(o)
-    //     });
+    // user.forEach(o => console.log(o.email_address));
+    // message.forEach(o => {
+    //             console.log(o)
+    //             //res.send(o)
+    //         });
 
- // });
+    sgMail.setApiKey('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')
+
+          
+    cron.schedule('*/1 * * * *', () => {
+        console.log('running every minute');
+        const msg = {
+            from: 'noreply@imex.com',
+            to: ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'],
+            subject: `Testing Email Schedule`,
+            text: 'Send multiple emails every one minute',
+            html: `Hey! This is just a test`
+            };
+
+               sgMail.sendMultiple(msg)
+                .then(() => {
+                res.send('Sheduled email sent to users');  
+
+                })
+                .catch((error) => {
+                    res.send(error);  
+
+                })
+
+
+ });
 
   });
 
