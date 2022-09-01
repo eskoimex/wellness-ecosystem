@@ -93,7 +93,7 @@ app.get("/", (req, res) => {
 
     message.forEach(function (item) {
         console.log(item);
-        res.send(item)
+        //res.send(item)
       });
           
 //     cron.schedule('*/1 * * * *', () => {
