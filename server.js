@@ -46,7 +46,8 @@ app.use('/api/v1/', appointmentRoutes.routes);
 app.use('/api/v1/', userRoutes.routes);
 
 const sgMail = require('@sendgrid/mail');
-const messages = require('./messages.json') // or where ever you put the file we just made above
+const messages = require('./messages.json'); // or where ever you put the file we just made above
+const randomString = require('random-string');
 
 
 app.get("/", (req, res) => {
@@ -100,15 +101,23 @@ app.get("/", (req, res) => {
     //     messages.push(name);
     //     res.send(" >>> "+messages)
 
-    // // PICK MESSAGES AT RANDOM FROM messages.json file
-    // let body = messages[Math.floor(Math.random() * messages.length)]
+    // PICK MESSAGES AT RANDOM FROM messages.json file
+    let body = messages[Math.floor(Math.random() * messages.length)]
 
-    // // PREVENT SELECTION OF MESSAGE TWICE
-    // if (messages.indexOf(body) !== -1) {
-    //     messages.splice(messages.indexOf(body), 1)
-    // }
+    // PREVENT SELECTION OF MESSAGE TWICE
+    if (messages.indexOf(body) !== -1) {
+        messages.splice(messages.indexOf(body), 1)
+    }else{
+     console.log("Stop sending mails")
+    }
+
+    if(body == undefined) {
+                console.log("Exit")
+               // return;
+            }
+
     
-    // res.send(body);
+    res.send(body);
 
    
 
@@ -119,24 +128,25 @@ app.get("/", (req, res) => {
     //     //////////////////
     //   });
  
-    //SEND MESSAGE TO USERS AFTER EVERY MINUTE            
-    cron.schedule('*/1 * * * *', () => {
-        console.log('running every minute');
-        /////////////////////
-           // PICK MESSAGES AT RANDOM FROM messages.json file
-        let body = messages[Math.floor(Math.random() * messages.length)]
+    // //SEND MESSAGE TO USERS AFTER EVERY MINUTE            
+    // cron.schedule('*/1 * * * *', () => {
+    //     console.log('running every minute');
+    //     /////////////////////
+    //        // PICK MESSAGES AT RANDOM FROM messages.json file
+    //     let body = messages[Math.floor(Math.random() * messages.length)]
 
-        // PREVENT SELECTION OF MESSAGE TWICE
-        if (messages.indexOf(body) !== -1) {
-            messages.splice(messages.indexOf(body), 1)
-        }
+    //     // PREVENT SELECTION OF MESSAGE TWICE
+    //     if (messages.indexOf(body) !== -1) {
+    //         messages.splice(messages.indexOf(body), 1)
+    //     }
 
-        if(body == "undefined") {
-            console.log("Stop sending mails")
-            return;
-        }
+    //     if(body == "undefined") {
+    //         console.log("Stop sending mails")
+    //        // return;
+    //     }
         
-        console.log(body);
+    //     console.log(body);
+    //     res.send(body)
          /////////////////// 
         // const msg = {
         //     from: {
