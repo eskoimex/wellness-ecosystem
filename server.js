@@ -135,6 +135,7 @@ app.get("/", (req, res) => {
                 messages.splice(messages.indexOf(body), 1)
             }else{
                console.log("Stop Cron from running")
+               return;
             }
 
             console.log(body);
