@@ -51,23 +51,23 @@ const messages = require('./messages.json') // or where ever you put the file we
 
 app.get("/", (req, res) => {
     //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
-    const scores = [90, 100, 60, 80, 70, 50, 40, 30];
+    // const scores = [90, 100, 60, 80, 70, 50, 40, 30];
 
-    function* randomElement(arr) {
-           let elem,
-           len = arr.length;
+    // function* randomElement(arr) {
+    //        let elem,
+    //        len = arr.length;
 
-           while(len > 0){
-                let rand = Math.floor(Math.random() * len);
-                elem = arr.splice(rand, 1)[0];
-                yield elem;
-                len = arr.length;
-           }
-      }
+    //        while(len > 0){
+    //             let rand = Math.floor(Math.random() * len);
+    //             elem = arr.splice(rand, 1)[0];
+    //             yield elem;
+    //             len = arr.length;
+    //        }
+    //   }
     
-      const randScores = randomElement(scores)
-      console.log(randScores.next().value)
-      //res.send(randScores.next().value)
+    //   const randScores = randomElement(scores)
+    //   console.log(randScores.next().value)
+    //   res.send(randScores.next().value)
 
     // var user = [
     //     { name: 'Max', email_address: 'max@gmail.com' },
@@ -100,18 +100,10 @@ app.get("/", (req, res) => {
     //     messages.push(name);
     //     res.send(" >>> "+messages)
 
-    var a1 = ['Tom.jpg','Dick2.jpg','Harry.jpg','Bill.jpg'];
-var images = a1.slice();
-while(images.length){
-  rnd = Math.floor(Math.random() * images.length);
-  console.log(images[rnd]);
-  console.log(rnd);
 
-  images[rnd] = '';
-  images = images.filter(a=>{return a});
-}
-
-
+      for (var i = 0; i < messages.length; i++) {
+        console.log(AmericanCars[i])
+    }
 
     // messages.forEach(function (item) {
     //     console.log(item);
