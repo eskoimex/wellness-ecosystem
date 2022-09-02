@@ -105,7 +105,7 @@ app.get("/", (req, res) => {
         messages.splice(messages.indexOf(body), 1)
     }
     
-    console.log("non-repeating message", body);
+    res.send(body);
 
     //   for (var i = 0; i < messages.length; i++) {
     //     // console.log(messages[i])
