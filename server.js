@@ -100,7 +100,16 @@ app.get("/", (req, res) => {
     //     messages.push(name);
     //     res.send(" >>> "+messages)
 
-    
+    var a1 = ['Tom.jpg','Dick2.jpg','Harry.jpg','Bill.jpg'];
+var images = a1.slice();
+while(images.length){
+  rnd = Math.floor(Math.random() * images.length);
+  console.log(images[rnd]);
+  images[rnd] = '';
+  images = images.filter(a=>{return a});
+}
+console.log(a1);
+res.send(a1);
 
 
     // messages.forEach(function (item) {
