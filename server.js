@@ -99,7 +99,8 @@ app.get("/", (req, res) => {
     //    let  name = messages.splice(num,1);
     //     messages.push(name);
     //     res.send(" >>> "+messages)
-
+    let body = messages[Math.floor(Math.random() * messages.length)]
+    console.log("random message", body)
 
       for (var i = 0; i < messages.length; i++) {
         console.log(messages[i])
