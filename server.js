@@ -99,22 +99,18 @@ app.get("/", (req, res) => {
     //    let  name = messages.splice(num,1);
     //     messages.push(name);
     //     res.send(" >>> "+messages)
-    let body = messages[Math.floor(Math.random() * messages.length)]
-    console.log("random message", body)
-    if (messages.indexOf(body) !== -1) {
-        messages.splice(messages.indexOf(body), 1)
-    }
-    
-    res.send(body);
 
-    //   for (var i = 0; i < messages.length; i++) {
-    //     // console.log(messages[i])
-    //     console.log(i)
+    // // PICK MESSAGES AT RANDOM FROM messages.json file
+    // let body = messages[Math.floor(Math.random() * messages.length)]
 
-    // console.log("random message", body)
-
-
+    // // PREVENT SELECTION OF MESSAGE TWICE
+    // if (messages.indexOf(body) !== -1) {
+    //     messages.splice(messages.indexOf(body), 1)
     // }
+    
+    // res.send(body);
+
+   
 
     // messages.forEach(function (item) {
     //     console.log(item);
@@ -123,36 +119,50 @@ app.get("/", (req, res) => {
     //     //////////////////
     //   });
  
-               
-//     cron.schedule('*/1 * * * *', () => {
-//         console.log('running every minute');
-//         const body = messages[Math.floor(Math.random() * messages.length)]
+    //SEND MESSAGE TO USERS AFTER EVERY MINUTE            
+    cron.schedule('*/1 * * * *', () => {
+        console.log('running every minute');
+        /////////////////////
+           // PICK MESSAGES AT RANDOM FROM messages.json file
+        let body = messages[Math.floor(Math.random() * messages.length)]
 
-//         const msg = {
-//             from: {
-//                 "email": "frank.oneil@tezzasolutions.com",
-//                 "name": "Cope Notes"
-//             },           
-//              to: email,
-//             subject: `Testing Email Schedule`,
-//             text: 'Send multiple emails every one minute',
-//             html: body
-//             };
+        // PREVENT SELECTION OF MESSAGE TWICE
+        if (messages.indexOf(body) !== -1) {
+            messages.splice(messages.indexOf(body), 1)
+        }
 
-//                sgMail.sendMultiple(msg)
-//                 .then(() => {
-//                 res.send('Scheduled email sent to users');  
-//                 console.log('Scheduled email sent to users');  
+        if(body == "undefined") {
+            console.log("Stop sending mails")
+            return;
+        }
+        
+        console.log(body);
+         /////////////////// 
+        // const msg = {
+        //     from: {
+        //         "email": "frank.oneil@tezzasolutions.com",
+        //         "name": "Cope Notes"
+        //     },           
+        //      to: email,
+        //     subject: `Testing Email Schedule`,
+        //     text: 'Send multiple emails every one minute',
+        //     html: body
+        //     };
 
-//                 })
-//                 .catch((error) => {
-//                     res.send(error);  
-//                     console.log(error)
+        //        sgMail.sendMultiple(msg)
+        //         .then(() => {
+        //         res.send('Scheduled email sent to users');  
+        //         console.log('Scheduled email sent to users');  
 
-//                 })
+        //         })
+        //         .catch((error) => {
+        //             res.send(error);  
+        //             console.log(error)
+
+        //         })
 
 
-//  });
+ });
 
   });
 
