@@ -104,6 +104,9 @@ app.get("/", (req, res) => {
 
       for (var i = 0; i < messages.length; i++) {
         console.log(messages[i])
+        console.log("messages", messages)
+        console.log(i)
+
     //    let body = messages[Math.floor(Math.random() * messages.length)]
     //     console.log(body)
     }
