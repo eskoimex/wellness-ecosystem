@@ -101,23 +101,17 @@ app.get("/", (req, res) => {
     //     messages.push(name);
     //     res.send(" >>> "+messages)
 
-    // PICK MESSAGES AT RANDOM FROM messages.json file
-    let body = messages[Math.floor(Math.random() * messages.length)]
+    // // PICK MESSAGES AT RANDOM FROM messages.json file
+    // let body = messages[Math.floor(Math.random() * messages.length)]
 
-    // PREVENT SELECTION OF MESSAGE TWICE
-    if (messages.indexOf(body) !== -1) {
-        messages.splice(messages.indexOf(body), 1)
-    }else{
-     console.log("Stop sending mails")
-    }
+    // // PREVENT SELECTION OF MESSAGE TWICE
+    // if (messages.indexOf(body) !== -1) {
+    //     messages.splice(messages.indexOf(body), 1)
+    // }else{
+    //  console.log("Stop sending mails")
+    // }
 
-    if(body == undefined) {
-                console.log("Exit")
-               // return;
-            }
-
-    
-    res.send(body);
+    // res.send(body);
 
    
 
@@ -128,51 +122,49 @@ app.get("/", (req, res) => {
     //     //////////////////
     //   });
  
-    // //SEND MESSAGE TO USERS AFTER EVERY MINUTE            
-    // cron.schedule('*/1 * * * *', () => {
-    //     console.log('running every minute');
-    //     /////////////////////
-    //        // PICK MESSAGES AT RANDOM FROM messages.json file
-    //     let body = messages[Math.floor(Math.random() * messages.length)]
+    //SEND MESSAGE TO USERS AFTER EVERY MINUTE            
+    cron.schedule('*/1 * * * *', () => {
+        console.log('running every minute');
+        /////////////////////
+         
+            // PICK MESSAGES AT RANDOM FROM messages.json file
+            let body = messages[Math.floor(Math.random() * messages.length)]
 
-    //     // PREVENT SELECTION OF MESSAGE TWICE
-    //     if (messages.indexOf(body) !== -1) {
-    //         messages.splice(messages.indexOf(body), 1)
-    //     }
+            // PREVENT SELECTION OF MESSAGE TWICE
+            if (messages.indexOf(body) !== -1) {
+                messages.splice(messages.indexOf(body), 1)
+            }else{
+               console.log("Stop Cron from running")
+            }
 
-    //     if(body == "undefined") {
-    //         console.log("Stop sending mails")
-    //        // return;
-    //     }
-        
-    //     console.log(body);
-    //     res.send(body)
-         /////////////////// 
-        // const msg = {
-        //     from: {
-        //         "email": "frank.oneil@tezzasolutions.com",
-        //         "name": "Cope Notes"
-        //     },           
-        //      to: email,
-        //     subject: `Testing Email Schedule`,
-        //     text: 'Send multiple emails every one minute',
-        //     html: body
-        //     };
+            console.log(body);
 
-        //        sgMail.sendMultiple(msg)
-        //         .then(() => {
-        //         res.send('Scheduled email sent to users');  
-        //         console.log('Scheduled email sent to users');  
+         ///////////////// 
+//         const msg = {
+//             from: {
+//                 "email": "frank.oneil@tezzasolutions.com",
+//                 "name": "Cope Notes"
+//             },           
+//              to: email,
+//             subject: `Testing Email Schedule`,
+//             text: 'Send multiple emails every one minute',
+//             html: body
+//             };
 
-        //         })
-        //         .catch((error) => {
-        //             res.send(error);  
-        //             console.log(error)
+//                sgMail.sendMultiple(msg)
+//                 .then(() => {
+//                 res.send('Scheduled email sent to users');  
+//                 console.log('Scheduled email sent to users');  
 
-        //         })
+//                 })
+//                 .catch((error) => {
+//                     res.send(error);  
+//                     console.log(error)
+
+//                 })
 
 
- //});
+ });
 
   });
 
