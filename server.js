@@ -102,7 +102,9 @@ app.get("/", (req, res) => {
 
 
       for (var i = 0; i < messages.length; i++) {
-        console.log(AmericanCars[i])
+        console.log(messages[i])
+       let body = messages[Math.floor(Math.random() * messages.length)]
+        console.log(body)
     }
 
     // messages.forEach(function (item) {
