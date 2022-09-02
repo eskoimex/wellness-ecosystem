@@ -101,8 +101,8 @@ app.get("/", (req, res) => {
     //     res.send(" >>> "+messages)
     let body = messages[Math.floor(Math.random() * messages.length)]
     console.log("random message", body)
-    if (body.indexOf(randomNum) !== -1) {
-        body.splice(body.indexOf(randomNum), 1)
+    if (messages.indexOf(body) !== -1) {
+        messages.splice(messages.indexOf(body), 1)
     }
     
     console.log("non-repeating message", body);
