@@ -100,17 +100,21 @@ app.get("/", (req, res) => {
     //     messages.push(name);
     //     res.send(" >>> "+messages)
     let body = messages[Math.floor(Math.random() * messages.length)]
-    //console.log("random message", body)
-
-      for (var i = 0; i < messages.length; i++) {
-        // console.log(messages[i])
-        console.log(i)
-
     console.log("random message", body)
-
-    //    let body = messages[Math.floor(Math.random() * messages.length)]
-    //     console.log(body)
+    if (body.indexOf(randomNum) !== -1) {
+        body.splice(body.indexOf(randomNum), 1)
     }
+    
+    console.log("non-repeating message", body);
+
+    //   for (var i = 0; i < messages.length; i++) {
+    //     // console.log(messages[i])
+    //     console.log(i)
+
+    // console.log("random message", body)
+
+
+    // }
 
     // messages.forEach(function (item) {
     //     console.log(item);
