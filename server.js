@@ -46,110 +46,44 @@ app.use('/api/v1/', appointmentRoutes.routes);
 app.use('/api/v1/', userRoutes.routes);
 
 const sgMail = require('@sendgrid/mail');
-const messages = require('./messages.json'); // or where ever you put the file we just made above
-const randomString = require('random-string');
+const messages = require('./messages.json'); 
 
 
 app.get("/", (req, res) => {
-    //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
-    // const scores = [90, 100, 60, 80, 70, 50, 40, 30];
+    res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
 
-    // function* randomElement(arr) {
-    //        let elem,
-    //        len = arr.length;
-
-    //        while(len > 0){
-    //             let rand = Math.floor(Math.random() * len);
-    //             elem = arr.splice(rand, 1)[0];
-    //             yield elem;
-    //             len = arr.length;
-    //        }
-    //   }
+//     sgMail.setApiKey('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')
     
-    //   const randScores = randomElement(scores)
-    //   console.log(randScores.next().value)
-    //   res.send(randScores.next().value)
+//     var users_email = ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'] //RETRIEVE FROM THE REDIS IN-MEMORY CACHE
 
-    // var user = [
-    //     { name: 'Max', email_address: 'max@gmail.com' },
-    //     { name: 'John', email_address: 'john@yahoo.com' },
-    //     { name: 'Caley', email_address: 'caley@hotmail.com' }
-    // ];
+//     //START CRON SERVICE TO RUN AFTER EVERY MINUTE            
+//    const task =  cron.schedule('*/1 * * * *', () => {
+//         console.log('CRON runs every minute');  
 
-    // var message = [
-    //     { subject: 'Hey', body: 'Hey! Wasup' },
-    //     { subject: 'Hello', body: 'Hello there' },
-    //     { subject: 'Hi', body: 'Hi! How are you?'}
-    // ];
-    
-    // user.forEach(o => console.log(o.email_address));
-    // message.forEach(o => {
-    //             console.log(o)
-    //             //res.send(o)
-    //         });
+//             // PICK MESSAGES AT RANDOM FROM messages.json file
+//             let message = messages[Math.floor(Math.random() * messages.length)]
 
-    sgMail.setApiKey('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')
-    
-    var message = ['Hey! Wasup', 'Hello there' ,'Hi! How are you?']
-    var email = ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com']
-//        let body = messages[Math.floor(Math.random() * messages.length)]
-//    res.send(body+" >>> "+messages)
+//             // PREVENT SELECTION OF MESSAGE TWICE
+//             if (messages.indexOf(message) !== -1) {
+//                 messages.splice(messages.indexOf(message), 1)
+//             }else{
+//                console.log("Stop Cron from running")
+//                task.stop();
+//                return; //STOP SENDING MAILS
+//             }
 
-    //     var unique = true;
-    //    let  num = Math.floor(Math.random() * messages.length - 5);
-    //    let  name = messages.splice(num,1);
-    //     messages.push(name);
-    //     res.send(" >>> "+messages)
+//             console.log(message);
 
-    // // PICK MESSAGES AT RANDOM FROM messages.json file
-    // let body = messages[Math.floor(Math.random() * messages.length)]
-
-    // // PREVENT SELECTION OF MESSAGE TWICE
-    // if (messages.indexOf(body) !== -1) {
-    //     messages.splice(messages.indexOf(body), 1)
-    // }else{
-    //  console.log("Stop sending mails")
-    // }
-
-    // res.send(body);
-
-   
-
-    // messages.forEach(function (item) {
-    //     console.log(item);
-    //     /////////////////
-          
-    //     //////////////////
-    //   });
- 
-    //SEND MESSAGE TO USERS AFTER EVERY MINUTE            
-    cron.schedule('*/1 * * * *', () => {
-        console.log('running every minute');
-        /////////////////////
-         
-            // PICK MESSAGES AT RANDOM FROM messages.json file
-            let body = messages[Math.floor(Math.random() * messages.length)]
-
-            // PREVENT SELECTION OF MESSAGE TWICE
-            if (messages.indexOf(body) !== -1) {
-                messages.splice(messages.indexOf(body), 1)
-            }else{
-               console.log("Stop Cron from running")
-               return;
-            }
-
-            console.log(body);
-
-         ///////////////// 
-//         const msg = {
+//          /////SEND MESSAGE TO USERS//////////
+//           const msg = {
 //             from: {
 //                 "email": "frank.oneil@tezzasolutions.com",
 //                 "name": "Cope Notes"
 //             },           
-//              to: email,
+//             to: users_email,
 //             subject: `Testing Email Schedule`,
 //             text: 'Send multiple emails every one minute',
-//             html: body
+//             html: message
 //             };
 
 //                sgMail.sendMultiple(msg)
@@ -165,7 +99,7 @@ app.get("/", (req, res) => {
 //                 })
 
 
- });
+//  });
 
   });
 
