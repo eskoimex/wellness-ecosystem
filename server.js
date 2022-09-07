@@ -50,56 +50,56 @@ const messages = require('./messages.json');
 
 
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
+    //res.json({ message: "Welcome to Wellness Ecosystem back-end service. GOOD TO GO!" });
 
-//     sgMail.setApiKey('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')
+    sgMail.setApiKey('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')
     
-//     var users_email = ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'] //RETRIEVE FROM THE REDIS IN-MEMORY CACHE
+    var users_email = ['princeofsuccess@yahoo.com', 'samuel.imex@gmail.com'] //RETRIEVE FROM THE REDIS IN-MEMORY CACHE
 
-//     //START CRON SERVICE TO RUN AFTER EVERY MINUTE            
-//    const task =  cron.schedule('*/1 * * * *', () => {
-//         console.log('CRON runs every minute');  
+    //START CRON SERVICE TO RUN AFTER EVERY MINUTE            
+   const task =  cron.schedule('*/1 * * * *', () => {
+        console.log('CRON runs every minute');  
 
-//             // PICK MESSAGES AT RANDOM FROM messages.json file
-//             let message = messages[Math.floor(Math.random() * messages.length)]
+            // PICK MESSAGES AT RANDOM FROM messages.json file
+            let message = messages[Math.floor(Math.random() * messages.length)]
 
-//             // PREVENT SELECTION OF MESSAGE TWICE
-//             if (messages.indexOf(message) !== -1) {
-//                 messages.splice(messages.indexOf(message), 1)
-//             }else{
-//                console.log("Stop Cron from running")
-//                task.stop();
-//                return; //STOP SENDING MAILS
-//             }
+            // PREVENT SELECTION OF MESSAGE TWICE
+            if (messages.indexOf(message) !== -1) {
+                messages.splice(messages.indexOf(message), 1)
+            }else{
+               console.log("Stop Cron from running")
+               task.stop();
+               return; //STOP SENDING MAILS
+            }
 
-//             console.log(message);
+            console.log(message);
 
-//          /////SEND MESSAGE TO USERS//////////
-//           const msg = {
-//             from: {
-//                 "email": "frank.oneil@tezzasolutions.com",
-//                 "name": "Cope Notes"
-//             },           
-//             to: users_email,
-//             subject: `Testing Email Schedule`,
-//             text: 'Send multiple emails every one minute',
-//             html: message
-//             };
+         /////SEND MESSAGE TO USERS//////////
+          const msg = {
+            from: {
+                "email": "frank.oneil@tezzasolutions.com",
+                "name": "Cope Notes"
+            },           
+            to: users_email,
+            subject: `Testing Email Schedule`,
+            text: 'Send multiple emails every one minute',
+            html: message
+            };
 
-//                sgMail.sendMultiple(msg)
-//                 .then(() => {
-//                 res.send('Scheduled email sent to users');  
-//                 console.log('Scheduled email sent to users');  
+               sgMail.sendMultiple(msg)
+                .then(() => {
+                res.send('Scheduled email sent to users');  
+                console.log('Scheduled email sent to users');  
 
-//                 })
-//                 .catch((error) => {
-//                     res.send(error);  
-//                     console.log(error)
+                })
+                .catch((error) => {
+                    res.send(error);  
+                    console.log(error)
 
-//                 })
+                })
 
 
-//  });
+ });
 
   });
 
